@@ -1,0 +1,287 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第四次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{习题1} 受迫谐振子的哈密顿量为：
+\[
+	\hat{H} = \hat{H}_0 + \hat{V}; \ \ \ \ \ \hat{H}_0 = \hbar\omega( \hat{a}^\dagger\hat{a} + \frac{1}{2}), \ \ \ \ \hat{V} = \hat{V} = \hbar g(\hat{a}+\hat{a}^\dagger).
+\]
+
+体系初始时刻处于$\hat{H}_0$的基态$\ket{0}$。
+
+分别在Schr\"{o}dinger绘景、Heisenberg绘景和Interaction绘景下，计算下列物理量的平均值：
+\[
+	\hat{n} = \hat{a}^\dagger\hat{a}, \ \ \ \ \hat{x} = \frac{1}{\sqrt{2}} (\hat{a}+\hat{a}^\dagger), \ \ \ \ \hat{p} = \frac{1}{\sqrt{2}i}(\hat{a}-\hat{a}^\dagger).
+\]
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+\textbf{Schr\"{o}dinger绘景：}
+
+由于体系哈密顿量不显含时间，则在$t$时刻，体系量子态可以写作：
+\[
+	\ket{\psi(t)} = e^{-i\hat{H}t/\hbar} \ket{0}.
+\]
+记$\hat{A} = i\hat{H}t/\hbar = i(\omega t(\hat{n} + 1/2) + \sqrt{2}gt \hat{x})$，可以计算：
+\begin{align*}
+	[\hat{n},\hat{x}] =& -i\hat{p}; \ \ [\hat{n},\hat{p}] = i\hat{x}; \ \ [\hat{x},\hat{p}] = i; \\
+	[\hat{A}, \hat{n}] =& i[\omega t(\hat{n}+1/2)+\sqrt{2}gt \hat{x}, \hat{n}] = -\sqrt{2} gt \hat{p}; \\
+	[\hat{A}, \hat{x}] =& i[\omega t(\hat{n}+1/2)+\sqrt{2}gt \hat{x}, \hat{x}] = \omega t \hat{p}; \\
+	[\hat{A}, \hat{p}] =& i[\omega t(\hat{n}+1/2)+\sqrt{2}gt \hat{x}, \hat{p}] = -\omega t \hat{x} - \sqrt{2} gt.
+\end{align*}
+
+\begin{enumerate}[(a)]
+\item 对于$\hat{n} = \hat{a}^\dagger\hat{a}$的平均值，可以先计算$e^{\hat{A}} \hat{n} e^{-\hat{A}}$如下：
+\begin{align*}
+	e^{\hat{A}} \hat{n} e^{-\hat{A}} =& \hat{n} + \frac{1}{1!} [\hat{A},\hat{n}] + \frac{1}{2!} [\hat{A}, [\hat{A},\hat{n}]] + \cdots \\
+	=& \hat{n} + \frac{1}{1!} (-\sqrt{2}gt\hat{p}) + \frac{1}{2!} (\sqrt{2}\omega g t^2 \hat{x} + 2g^2t^2) \\
+	&+ \frac{1}{3!}(\sqrt{2}\omega^2 g t^3 \hat{p}) + \frac{1}{4!}(-\sqrt{2}\omega^3gt^4 \hat{x} - 2\omega^2g^2t^4) + \cdots \\
+	=& \hat{n} + \frac{\sqrt{2}g}{\omega}\hat{x} \left( \frac{1}{2!}(\omega t)^2 - \frac{1}{4!}(\omega t)^4 + \cdots \right) \\
+	&- \frac{\sqrt{2}g}{\omega}\hat{p} \left( \frac{1}{1!}(\omega t) - \frac{1}{3!}(\omega t)^3 + \cdots \right) + \frac{2g^2}{\omega^2} \left( \frac{1}{2!}(\omega t)^2 - \frac{1}{4!}(\omega t)^4 + \cdots \right) \\
+	=& \hat{n} + \frac{\sqrt{2}g}{\omega}\hat{x}(1-\cos(\omega t)) - \frac{\sqrt{2}g}{\omega}\hat{p}\sin(\omega t) + \frac{2g^2}{\omega^2}(1-\cos(\omega t)).
+\end{align*}
+则有：
+\[
+	\bra{\psi(t)} \hat{n} \ket{\psi(t)} = \bra{0} e^{\hat{A}} \hat{n} e^{-\hat{A}} \ket{0} = \frac{2g^2}{\omega^2}(1-\cos(\omega t)).
+\]
+
+\item 对于$\hat{x} = \frac{1}{\sqrt{2}}(\hat{a}^\dagger+\hat{a})$，可以先计算$e^{\hat{A}} \hat{x} e^{-\hat{A}}$如下：
+\begin{align*}
+	e^{\hat{A}} \hat{x} e^{-\hat{A}} =& \hat{x} + \frac{1}{1!}[\hat{A}, \hat{x}] + \frac{1}{2!}[\hat{A}, [\hat{A},\hat{x}]] + \cdots \\
+	=& \hat{x} + \frac{1}{1!}(\omega t \hat{p}) + \frac{1}{2!}(-(\omega t)^2 \hat{x} - \sqrt{2}\omega g t^2) \\
+	&+ \frac{1}{3!}(-(\omega t)^3 \hat{p}) + \frac{1}{4!}((\omega t)^4 \hat{x} + \sqrt{2}g\omega^3t^4) + \cdots \\
+	=& \hat{x}\left(1 - \frac{1}{2!}(\omega t)^2 + \frac{1}{4!}(\omega t)^4 + \cdots \right) + \hat{p} \left( \frac{1}{1!}(\omega t) - \frac{1}{3!}(\omega t)^3 + \cdots \right) \\
+	&+ \frac{\sqrt{2}g}{\omega} \left( -\frac{1}{2!}(\omega t)^2 + \frac{1}{4!}(\omega t)^4 + \cdots \right) \\
+	=& \hat{x} \cos(\omega t) + \hat{p} (\sin(\omega t)) + \frac{\sqrt{2}g}{\omega}(\cos(\omega t) - 1).
+\end{align*}
+则有：
+\[
+	\bra{\psi(t)} \hat{x} \ket{\psi(t)} = \bra{0} e^{\hat{A}} \hat{x} e^{-\hat{A}} \ket{0} = \frac{\sqrt{2}g}{\omega}(\cos(\omega t) - 1).
+\]
+
+\item 对于$\hat{p} = \frac{1}{\sqrt{2}i}(\hat{a}-\hat{a}^\dagger)$的平均值，可以先计算$e^{\hat{A}} \hat{p} e^{-\hat{A}}$如下：
+\begin{align*}
+	e^{\hat{A}} \hat{p} e^{-\hat{A}} =& \hat{p} + \frac{1}{1!}[\hat{A}, \hat{p}] + \frac{1}{2!}[\hat{A}, [\hat{A}, \hat{p}]] + \cdots \\
+	=& \hat{p} + \frac{1}{1!}(-\omega t \hat{x} - \sqrt{2}gt) + \frac{1}{2!}(-(\omega t)^2 \hat{p}) + \frac{1}{3!}((\omega t)^3 \hat{x} + \sqrt{2}g\omega^2t^3) + \cdots \\
+	=& \hat{p} \left( 1-\frac{1}{2!}(\omega t)^2+\cdots \right) - \hat{x}\left( -\frac{1}{1!}\omega t + \frac{1}{3!}(\omega t)^3 + \cdots \right) - \frac{\sqrt{2}g}{\omega}\left( \omega t - \frac{1}{3!}(\omega t)^3 \right) \\
+	=& \hat{p} \cos(\omega t) - \hat{x} \sin(\omega t) - \frac{\sqrt{2}g}{\omega} \sin(\omega t).
+\end{align*}
+则有：
+\[
+	\bra{\psi(t)} \hat{p} \ket{\psi(t)} = \bra{0} e^{\hat{A}} \hat{p} e^{-\hat{A}} \ket{0} = -\frac{\sqrt{2}g}{\omega}\sin(\omega t).
+\]
+\end{enumerate}
+
+\textbf{Heisenberg绘景：}
+
+对于Heisenberg绘景下算符$\hat{A}_H(t) = U^\dagger(t,0) \hat{A}_S U(t,0)$，满足Heisenberg方程：
+\[
+	i\hbar \frac{d \hat{A}_H(t)}{dt} = [\hat{A}_H(t), \hat{H}].
+\]
+则对于三个算符可以计算：
+\begin{align*}
+	i\hbar \frac{d\hat{n}_H(t)}{dt} =& [\hat{n}_H(t), \hat{H}] = -i\sqrt{2} \hbar g \hat{p}_H(t); \\
+	i\hbar \frac{d\hat{x}_H(t)}{dt} =& [\hat{x}_H(t), \hat{H}] = i\hbar\omega \hat{p}_H(t); \\
+	i\hbar \frac{d\hat{p}_H(t)}{dt} =& [\hat{p}_H(t), \hat{H}] = -i\hbar\omega \hat{x}_H(t) - i\sqrt{2}\hbar g.
+\end{align*}
+将第三个方程两侧对时间求导并取平均可得：
+\[
+	i\hbar \frac{d^2p_H(t)}{dt^2} = -i\hbar\omega \frac{d x_H(t)}{dt} = -i\hbar\omega^2p_H(t).
+\]
+则有：
+\[
+	p_H(t) = a_1\sin(\omega t) + a_2 \cos(\omega t) + a_3.
+\]
+利用$p_H(0) = 0, \ \frac{dp_H(0)}{dt} = -\sqrt{2}g, \ \frac{d^2p_H(0)}{dt^2} = 0$可得：$a_1=-\frac{\sqrt{2}g}{\omega}, \ a_2 = a_3 = 0$。
+即有：
+\[
+	\bra{0} \hat{p}_H(t) \ket{0} = -\frac{\sqrt{2}g}{\omega} \sin(\omega t).
+\]
+第一个方程两侧取平均有：
+\[
+	\frac{dn_H(t)}{dt} = -\sqrt{2}g p_H(t) = \frac{2g^2}{\omega}\sin(\omega t).
+\]
+则有：
+\[
+	n_H(t) = -\frac{2g^2}{\omega^2} \cos(\omega t) + b_1.
+\]
+利用$n_H(0) = 0$，可得：$b_1 = \frac{2g^2}{\omega^2}$，则有：
+\[
+	n_H(t) = \frac{2g^2}{\omega^2}(1-\cos(\omega t)).
+\]
+第二个方程两侧取平均有：
+\[
+	\frac{dx_H(t)}{dt} = \omega p_H(t) = -\sqrt{2}g \sin(\omega t).
+\]
+则有：
+\[
+	x_H(t) = \frac{\sqrt{2}g}{\omega}\cos(\omega t) + c_1
+\]
+利用$x_H(0) = 0$，可得：$c_1 = -\frac{\sqrt{2}g}{\omega}$，则有：
+\[
+	x_H(t) = \frac{\sqrt{2}g}{\omega}(\cos(\omega t)- 1).
+\]
+综上所述，在Heisenberg绘景下，三个算符平均值分别为：
+\begin{align*}
+	\bra{0} \hat{n}_H(t) \ket{0} =& \frac{2g^2}{\omega^2}(1-\cos(\omega t)); \\
+	\bra{0} \hat{x}_H(t) \ket{0} =& \frac{\sqrt{2}g}{\omega}(\cos(\omega t)- 1); \\
+	\bra{0} \hat{p}_H(t) \ket{0} =& -\frac{\sqrt{2}g}{\omega} \sin(\omega t).
+\end{align*}
+
+\textbf{Interaction绘景：}
+
+在Interaction绘景下，算符$\hat{A}_I = U_0^\dagger(t,0) \hat{A}_S U_0(t,0)$满足方程：
+\[
+	i\hbar\frac{d\hat{A}_I(t)}{dt} = [\hat{A}_I(t), \hat{H}_0]
+\]
+其中$U_0(t,0) = e^{-i\hat{H}_0t/\hbar}$。Interaction绘景下态矢量满足：
+\[
+	i\hbar\frac{d}{dt}\ket{\psi_I(t)} = \hat{V}_I(t) \ket{\psi_I(t)}.
+\]
+取一阶近似，有：
+\[
+	\ket{\psi_I(t)} = \hat{U}_I(t,0) \ket{\psi_I(t)} = \left( 1 + \frac{1}{i\hbar} \int_0^t \hat{V}_I(t')dt' \right) \ket{\psi_I(0)}.
+\]
+其中$\ket{\psi_I(0)} = \ket{\psi(0)} = \ket{0}$。从而可以计算：
+\begin{align*}
+	\ket{\psi_I(t)} =& \ket{0} + \frac{1}{i\hbar} \int_0^t e^{i\omega t(\hat{n}+1/2)} \sqrt{2}g\hbar\hat{x} e^{-i\omega t(\hat{n}+1/2)} \ket{0} \\
+	=& \ket{0} - ig\int_0^t e^{i\omega t'}dt' \ket{1} \\
+	=& \ket{0} - \frac{g}{\omega}(e^{i\omega t} - 1) \ket{1}.
+\end{align*}
+对于三个算符可以计算：
+\begin{align*}
+	i\hbar\frac{d\hat{n}_I(t)}{dt} =& [\hat{n}_I(t), \hat{H}_0] = 0; \\
+	i\hbar\frac{d\hat{x}_I(t)}{dt} =& [\hat{x}_I(t), \hat{H}_0] = i\hbar\omega \hat{p}_I(t); \\
+	i\hbar\frac{d\hat{p}_I(t)}{dt} =& [\hat{p}_I(t), \hat{H}_0] = -i\hbar\omega \hat{x}_I(t).
+\end{align*}
+则有：
+\begin{align*}
+	\hat{n}_I(t) =& \hat{n}_I(0) = \hat{n}; \\
+	\hat{x}_I(t) =& \hat{A}_1 \sin(\omega t) - \hat{A}_2 \cos(\omega t); \\
+	\hat{p}_I(t) =& \hat{A}_1 \cos(\omega t) + \hat{A}_2 \sin(\omega t).
+\end{align*}
+利用$\hat{x}_I(0) = \hat{x}, \ \hat{p}_I(0) = \hat{p}$，可得：$\hat{A}_1 = \hat{p}, \ \hat{A}_2 = -\hat{x}$。即：
+\begin{align*}
+	\hat{x}_I(t) =& \hat{p}\sin(\omega t) + \hat{x}\cos(\omega t); \\
+	\hat{p}_I(t) =& \hat{p}\cos(\omega t) - \hat{x}\sin(\omega t).
+\end{align*}
+则可以计算三个算符的平均值为：
+\begin{align*}
+	\bra{\psi_I(t)} \hat{n}_I(t) \ket{\psi_I(t)} =& \frac{2g^2}{\omega^2}(1-\cos(\omega t)); \\
+	\bra{\psi_I(t)} \hat{x}_I(t) \ket{\psi_I(t)} =& \frac{\sqrt{2}g}{\omega}(\cos(\omega t)-1); \\
+	\bra{\psi_I(t)} \hat{p}_I(t) \ket{\psi_I(t)} =& -\frac{\sqrt{2}g}{\omega}\sin(\omega t).
+\end{align*}
+
+\end{tcolorbox}
+
+\textbf{习题2} 利用路径积分推导一维谐振子的传播子表达式
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+传播子为：
+\begin{align*}
+	K(x_f, t_f; x_i, t_i) =& \prod_{k=1}^{N-1} \sqrt{\frac{m}{2\pi i\hbar \tau}} \int dx_k \prod_{j=0}^{N-1} e^{\frac{i}{\hbar}\tau \left[ \frac{m}{2}\left( \frac{x_{j+1}-x_j}{\tau} \right)^2 -V(x_j) \right]} \\
+	=& \prod_{k=1}^{N-1} \int dx_k \prod_{j=0}^{N-1} K(x_{j+1}, x_j, \tau)
+\end{align*}
+其中
+\[
+	K(x_{j+1}, x_j, \tau) = K(x_{j+1}, t_{j+1}, x_j, t_j) = \sqrt{\frac{m}{2\pi i\hbar\tau}} e^{\frac{i}{\hbar}\tau\left[ \frac{m}{2}\left( \frac{x_{j+1}-x_j}{\tau} \right)^2 - V(x_j) \right]}
+\]
+当$\tau \to 0$时，可以做如下近似：
+\[
+	V(x_j) \approx \frac{1}{2}(V(x_{j+1}) + V(x_j))
+\]
+则短时传播子为：
+\begin{align*}
+	K(x_{j+1}, x_j, \tau) =& \sqrt{\frac{m}{2\pi i \hbar\tau}} e^{\frac{i}{\hbar}\tau\left[ \frac{m}{2}\left( \frac{x_{j+1}-x_j}{\tau} \right)^2 - \frac{1}{2}(V(x_{j+1}) + V(x_j)) \right]} \\
+	=& \sqrt{\frac{m}{2\pi i \hbar\tau}} e^{\frac{i m}{2\hbar}\frac{1}{\tau} \left[ ( \frac{x_{j+1}-x_j} )^2 - \frac{\omega^2 \tau^2}{2}(x_{j+1}^2 + x_j^2) \right]} \\
+	=& \sqrt{\frac{m\omega}{2\pi i \hbar}} \sqrt{\frac{1}{\omega \tau}} e^{\frac{im\omega}{2\hbar} \frac{1}{\omega \tau}} \left[ \left( 1-\frac{\omega^2\tau^2}{2} \right)(x_{j+1}^2+x_j^2) - 2x_{j+1}x_j \right]
+\end{align*}
+可以做变量替换：
+\[
+	\sin \phi = \omega \tau.
+\]
+当$\tau\to 0$时，有：$\phi \approx \sin\phi = \omega \tau$, $\cos\phi = \sqrt{1-\omega^2\tau^2} \approx 1-\omega^2\tau^2/2$，则有：
+\[
+	F(\eta, \eta'; \phi) = K(\eta, \eta'; \frac{\sin\phi}{\omega}) = \sqrt{\frac{m\omega}{2\pi i\hbar}} \sqrt{\frac{1}{\sin\phi}} e^{\frac{im\omega}{2\hbar}\frac{1}{\sin\phi}[(\eta^2+\eta'^2)\cos\phi-2\eta\eta']}
+\]
+可以计算：
+\begin{align*}
+	\int d\eta F(\eta'', \eta; \phi) F(\eta, \eta'; \phi) =& \frac{m\omega}{2\pi i\hbar}\frac{1}{\sin\phi} e^{\frac{im\omega}{2\hbar} \frac{\cos\phi}{\sin\phi} (\eta''^2+\eta'^2)} \int d\eta e^{\frac{im\omega}{\hbar}\frac{1}{\sin\phi} [\eta^2\cos\phi-\eta(\eta''+\eta')]} \\
+	=& \frac{m\omega}{2\pi i\hbar}\frac{1}{\sin\phi} \sqrt{\frac{\pi i\hbar\sin\phi}{m\omega\cos\phi}} e^{\frac{im\omega}{2\hbar} \frac{1}{\sin\phi} [(\eta''^2+\eta'^2) \cos\phi - \frac{(\eta''+\eta)^2}{2\cos\phi}]} \\
+	=& \sqrt{\frac{m\omega}{2\pi i\hbar}} \sqrt{\frac{1}{\sin2\phi}} e^{\frac{im\omega}{2\hbar} \frac{1}{\sin2\phi} [(\eta''^2+\eta'^2)\cos2\phi - 2\eta''\eta']} \\
+	=& F(\eta'', \eta'; 2\phi).
+\end{align*}
+利用此性质，可以计算传播子如下：
+\begin{align*}
+	K(x_f, t_f; x_i, t_i) =& \prod_{k=1}^{N-1} \int dx_k \prod_{j=0}^{N-1} F(x_{j+1}, x_j, \phi) \\
+	=& F(x_f, x_i, T) \\
+	=& \left( \frac{m\omega}{2\pi i\hbar \sin\omega(t_f-t_i)} \right)^{1/2} e^{\frac{i}{\hbar} \frac{m\omega}{2\sin\omega(t_f-t_i)} [(x_f^2+x_i^2)\cos\omega(t_f-t_i) - 2x_fx_i]}.
+\end{align*}
+
+\end{tcolorbox}
+
+\textbf{习题3} SSH model的哈密顿量可以写为：
+\[
+	\hat{H}_{SSH}(k) = (t_1 + t_2\cos k)\hat{\sigma}_x + t_2 \hat{\sigma}_y.
+\]
+计算：
+\[
+	\gamma = \int_{-\pi}^\pi \sum_i \bra{n_i(k)} i\frac{\partial}{\partial k} \ket{n_i(k)} dk. 
+\]
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+系统哈密顿量可以写为：
+\[
+	H = \left( \begin{matrix}
+		0 & t_1 + t_2e^{-ik} \\
+		t_1+t_2e^{ik} & 0
+	\end{matrix} \right)
+\]
+将其对角化可得两个本征态分别为：
+\[
+	\ket{u_1} = \frac{1}{\sqrt{2}}\left( \frac{t_1+t_2e^{-ik}}{\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}} \ \ 1 \right)^T; \ \ \ \ket{u_2} = \frac{1}{\sqrt{2}}\left( -\frac{t_1+t_2e^{-ik}}{\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}} \ \ 1 \right)^T.
+\]
+则可以计算Berry Phase为：
+\begin{align*}
+	\gamma_1 =& \int_{-\pi}^\pi \bra{u_1(k)} i\frac{d}{dk} \ket{u_1(k)} dk \\
+	=& \frac{i}{2} \int_{-\pi}^\pi \frac{t_1+t_2e^{ik}}{\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}} \frac{d}{dk} \frac{t_1+t_2e^{-ik}}{\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}} dk \\
+	=& \frac{i}{2} \int_{-\pi}^\pi \frac{t_1+t_2e^{ik}}{\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}} \left( \frac{-it_2 e^{-ik}}{\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}} + \frac{(t_1+t_2e^{-ik})t_1t_2\sin k}{(t_1^2+t_2^2+2t_1t_2\cos k)^{3/2}} \right)dk \\
+	=& \frac{1}{2} \int_{-\pi}^\pi \frac{t_2^2 + t_1t_2e^{-ik} + it_1t_2\sin k}{t_1^2+t_2^2+2t_1t_2\cos k}dk \\
+	=& \frac{1}{2} \int_{-\pi}^\pi \frac{t_2^2 + t_1t_2\cos k}{t_1^2+t_2^2+2t_1t_2\cos k} dk \\
+	=& \frac{1}{4} \int_{-\pi}^\pi \left( 1 + \frac{t_2^2-t_1^2}{t_1^2+t_2^2+2t_1t_2\cos k} \right) dk \\
+	=& \frac{\pi}{2} + \frac{1}{4} \int_{-\pi}^\pi \frac{t_2^2-t_1^2}{t_1^2+t_2^2+2t_1t_2\cos k} \,dk
+\end{align*}
+其中，可以利用Mathematica计算上述积分，当$t_2>t_1$时，积分等于$2\pi$，此时$\gamma_1 = \pi$；当$t_2<t_1$时，积分等于$-2\pi$，此时$\gamma_1 = 0$。
+
+同样地，我们可以计算：
+\[
+	\gamma_2 = \int_{-\pi}^\pi \bra{u_2(k)} i\frac{d}{dk} \ket{u_2(k)} = \left\{ \begin{aligned}
+		&\pi, & t_2>t_1; \\
+		&0, & t_2<t_1.
+	\end{aligned} \right.
+\]
+\end{tcolorbox}
+\end{document}
+
++ \bra{u_2(k)} i\frac{d}{dk} \ket{u_2(k)} \right) 
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\end{tcolorbox}

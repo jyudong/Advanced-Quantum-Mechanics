@@ -1,0 +1,170 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第十一次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{习题5.7}
+
+证明全同单分量费米子系统接触势相互作用为0.
+
+\begin{proof}
+对于全同单分量费米子系统，接触势写成二次量子化形式如下：
+\begin{align*}
+	V =& \sum_{i<j} V(\vec{r}_i, \vec{r}_j) \\
+	=& \sum_{i<j} g \delta(\vec{r}_i - \vec{r}_j) \\
+	=& \frac{g}{2} \int d\vec{r}_1 d\vec{r}_1' d\vec{r}_2 d\vec{r}_2' \bra{\vec{r}_1; \vec{r}_2} \delta(\hat{\vec{r}}_1 - \hat{\vec{r}}_2) \ket{\vec{r}_1'; \vec{r}_2'} \psi^\dagger(\vec{r}_1) \psi^\dagger(\vec{r}_2) \psi(\vec{r}_2) \psi(\vec{r}_1) \\
+	=& \frac{g}{2} \int d\vec{r} \psi^\dagger(\vec{r}) \psi^\dagger(\vec{r}) \psi(\vec{r}) \psi(\vec{r}) \\
+	=& \frac{g}{2} \int d\vec{r} \sum_{\vec{k}_1',\vec{k}_2',\vec{k}_1,\vec{k}_2} \frac{1}{V^2} e^{i(\vec{k}_1+\vec{k}_2-\vec{k}_1'-\vec{k}_2') \cdot \vec{r}} c^\dagger_{\vec{k}_1'} c^\dagger_{\vec{k}_2'} c_{\vec{k}_2} c_{\vec{k}_1} \\
+	=& \frac{g}{2V} \sum_{\vec{k}_1',\vec{k}_2',\vec{k}_1,\vec{k}_2} \delta_{\vec{k}_1'+\vec{k}_2', \vec{k}_1+\vec{k}_2} c^\dagger_{\vec{k}_1'} c^\dagger_{\vec{k}_2'} c_{\vec{k}_2} c_{\vec{k}_1}.
+\end{align*}
+
+此时体系的基态可以写作：
+\[
+	\ket{G} = \prod_{k\leq k_F} c_k^\dagger \ket{0}.
+\]
+
+基态下势能为：
+\[
+	E_V = \bra{G} \hat{V} \ket{G} = \frac{g}{2V} \sum_{\vec{k}_1',\vec{k}_2',\vec{k}_1,\vec{k}_2} \delta_{\vec{k}_1'+\vec{k}_2', \vec{k}_1+\vec{k}_2} \bra{G} c^\dagger_{\vec{k}_1'} c^\dagger_{\vec{k}_2'} c_{\vec{k}_2} c_{\vec{k}_1} \ket{G}.
+\]
+
+其中Hartree能为：
+\begin{align*}
+	E_{VH} =& \frac{g}{2V} \sum_{\vec{k}_1',\vec{k}_2',\vec{k}_1,\vec{k}_2} \delta_{\vec{k}_1'+\vec{k}_2', \vec{k}_1+\vec{k}_2} \bra{G} c^\dagger_{\vec{k}_1'} c_{\vec{k}_1} \ket{G} \bra{G} c^\dagger_{\vec{k}_2'} c_{\vec{k}_2} \ket{G} \\
+	=& \frac{g}{2V} \sum_{\vec{k}_1, \vec{k}_2} n_{\vec{k}_1} n_{\vec{k}_2} \\
+	=& \frac{g}{2V} N^2.
+\end{align*}
+
+Fock能，即交换能为：
+\begin{align*}
+	E_{VF} =& -\frac{g}{2V} \sum_{\vec{k}_1',\vec{k}_2',\vec{k}_1,\vec{k}_2} \delta_{\vec{k}_1'+\vec{k}_2', \vec{k}_1+\vec{k}_2} \bra{G} c^\dagger_{\vec{k}_1'} c_{\vec{k}_2} \ket{G} \bra{G} c^\dagger_{\vec{k}_2'} c_{\vec{k}_1} \ket{G} \\
+	=& -\frac{g}{2V} \sum_{\vec{k}_1, \vec{k}_2} n_{\vec{k}_2} n_{\vec{k}_1} \\
+	=& -\frac{g}{2V}N^2.
+\end{align*}
+
+即接触势相互作用总能量为：
+\[
+	E_V = E_{VH} + E_{VF} = 0.
+\]
+\end{proof}
+
+\medskip
+
+\textbf{习题5.8}
+
+交换能$E_{VF}$是否由单分量接触势引起，以致应该忽略？解释没有忽略它的原因。
+
+\begin{proof}
+交换能$E_{VF}$是由于单分量接触势引起。但是由于Hartree能与自旋取向无关，即Hartree能与Fock能不能完全抵消，从而不能忽略交换能。
+\end{proof}
+
+\medskip
+
+\textbf{习题5.9}
+
+在海森堡绘景求解算符$a_{\vec{m}}$和$a_{\vec{m}}^\dagger$的运动方程，并观察方程的特点。哈密顿量为：
+\[
+	H = \epsilon_L \sum_{\vec{m}\neq 0} \left( (\vec{m}^2 + \frac{2Na}{\pi L}) a^\dagger_{\vec{m}} a_{\vec{m}} + \frac{Na}{\pi L} (a^\dagger_{\vec{m}} a^\dagger_{-\vec{m}} + a_{\vec{m}} a_{-\vec{m}}) \right)
+\]
+
+\begin{proof}
+由Hessiberg运动方程可以计算：
+\begin{align*}
+	i\hbar \frac{d a_{\vec{m}}}{dt} =& [a_{\vec{m}}, H] = \epsilon_L \left( (\vec{m}^2+\frac{2Na}{\pi L}) a_{\vec{m}} + \frac{2Na}{\pi L} a_{-\vec{m}}^\dagger \right); \\
+	i\hbar \frac{d a_{\vec{m}}^\dagger}{dt} =& [a_{\vec{m}}^\dagger, H] = \epsilon_L \left( -(\vec{m}^2+\frac{2Na}{\pi L})a_{\vec{m}}^\dagger - \frac{2Na}{\pi L} a_{-\vec{m}} \right).
+\end{align*}
+
+从而可以得到：
+\begin{align*}
+	&i\hbar \frac{d(a_{\vec{m}} + a_{-\vec{m}}^\dagger)}{dt} = \epsilon_L \left( \vec{m}^2(a_{\vec{m}} - a_{-\vec{m}}^\dagger) \right); \\
+	&i\hbar \frac{d(a_{\vec{m}} - a_{-\vec{m}}^\dagger)}{dt} = \epsilon_L \left( (\vec{m}^2+\frac{4Na}{\pi L}) (a_{\vec{m}}+a_{-\vec{m}}^\dagger) \right).
+\end{align*}
+
+从而有：
+\begin{align*}
+	&-\hbar^2 \frac{d^2(a_{\vec{m}} + a_{-\vec{m}}^\dagger)}{dt^2} = \epsilon^2 \vec{m}^2(\vec{m}^2+\frac{4Na}{\pi L}) (a_{\vec{m}} + a_{-\vec{m}}^\dagger); \\
+	&-\hbar^2 \frac{d^2(a_{\vec{m}} - a_{-\vec{m}}^\dagger)}{dt^2} = \epsilon^2 \vec{m}^2(\vec{m}^2+\frac{4Na}{\pi L}) (a_{\vec{m}} - a_{-\vec{m}}^\dagger).
+\end{align*}
+
+可以解得：
+\begin{align*}
+	&a_{\vec{m}}(t) + a_{-\vec{m}}^\dagger(t) = (a_{\vec{m}}+a_{-\vec{m}}^\dagger) \cos(\omega t) + \frac{\epsilon_L \vec{m}^2}{i\hbar \omega} (a_{\vec{m}}-a_{-\vec{m}}^\dagger) \sin(\omega t); \\
+	&a_{\vec{m}}(t) - a_{-\vec{m}}^\dagger(t) = (a_{\vec{m}}-a_{-\vec{m}}^\dagger) \cos(\omega t) + \frac{\epsilon_L}{i\hbar \omega}(\vec{m}^2+\frac{4Na}{\pi L}) (a_{\vec{m}}+a_{-\vec{m}}^\dagger) \sin(\omega t).
+\end{align*}
+
+其中
+\[
+	\omega^2 = \frac{\epsilon_L^2 \vec{m}^2}{\hbar^2}(\vec{m}^2 + \frac{4Na}{\pi L}).
+\]
+
+其中，利用了对易关系：
+\[
+	[a_{\vec{m}}, a_{\vec{m}}^\dagger] = \delta_{\vec{m}, \vec{m}'}; \ \ [a_{\vec{m}}^\dagger, a_{\vec{m}}^\dagger] = 0; \ \ [a_{\vec{m}}, a_{\vec{m}}] = 0.
+\]
+
+从方程中，不难发现，产生（湮灭）算符$a_{\vec{m}}$($a_{\vec{m}}^\dagger$)随时间的演化不仅与其自身相关，还与动量方向相反的湮灭（产生）算符耦合在一起。
+\end{proof}
+
+\medskip
+
+\textbf{习题5.10}
+
+求解体系基态能量。其中，基态可以写作：
+\[
+	\ket{G_{\vec{m}}} = \sum_{i=0}^\infty \left( -\frac{v_{\vec{m}}}{u_{\vec{m}}} \right)^i c_{0,0} \ket{i,i}.
+\]
+
+\begin{proof}
+体系哈密顿量可以写作：
+\[
+	H_e = \sum_{\vec{m}\neq 0} \epsilon_{m} b_{\vec{m}}^\dagger b_{\vec{m}} + (A_m v_{\vec{m}}^2 - 2Bu_{\vec{m}} v_{\vec{m}}).
+\]
+
+注意到由于基态$\ket{G_{\vec{m}}}$是$b_{\vec{m}}$的本征态，本征值为0，则有：
+\[
+	\bra{G_{\vec{m}}} H_e \ket{G_{\vec{m}}} = A_m v_{\vec{m}}^2 - 2Bu_{\vec{m}} v_{\vec{m}}.
+\]
+
+考虑到初始哈密顿量
+\[
+	H_0 = \frac{a}{\pi L} \epsilon_L N^2 - 2N\frac{a}{\pi L} \epsilon_L \sum_{\vec{m}\neq 0} a^\dagger_{\vec{m}} a_{\vec{m}}.
+\]
+
+保留常数项得到基态能量为：
+\[
+	\frac{a}{\pi L} \epsilon_L N^2 + A_m v_{\vec{m}}^2 - 2Bu_{\vec{m}} v_{\vec{m}}.
+\]
+
+此外，可以利用讲义中给出的模式$\vec{m}$下的粒子数为：
+\[
+	n_{\vec{m}} = \frac{\frac{1}{\sqrt{1-(2/((p/p_s)^2+2))^2}} - 1}{2}.
+\]
+
+则基态能量为：
+\[
+	E = \int_0^\infty 4\pi k^2 n_k /k_L^3 dk = V(na)^{3/2} \frac{1}{m\sqrt{\pi}} \int_0^\infty k^4 \left( \frac{1}{\sqrt{1-(2/(k^2+2))^2}} - 1 \right) dk.
+\]
+\end{proof}
+
+
+\end{document}

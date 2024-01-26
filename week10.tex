@@ -1,0 +1,164 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第十次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{习题5.3}
+
+证明方程
+\[
+	\sum_{i, j} \ket{\phi_\alpha(i), \phi_\delta(j)} \bra{\phi_\beta(i), \phi_\tau(j)} = \hat{a}^\dagger_\alpha \hat{a}^\dagger_\delta \hat{a}_\tau \hat{a}_\beta.
+\]
+
+\begin{proof}
+在$\alpha \neq \delta \neq \beta \neq \tau$的情况下，不妨取$\alpha<\delta<\beta<\tau$，可以计算：
+\begin{align*}
+	&\sum_{i, j} \ket{\phi_\alpha(i), \phi_\delta(j)} \bra{\phi_\beta(i), \phi_\tau(j)} \ket{n_1, n_2, \cdots, n_M} \\
+	=& \frac{1}{\sqrt{N!n_1!n_2!\cdots n_M!}} \sum_\sigma \sigma \sum_{i, j} \ket{\phi_\alpha(i), \phi_\delta(j)} \bra{\phi_\beta(i), \phi_\tau(j)} \psi^*(n_1, \cdots, n_M) \rangle \\
+	=& \frac{1}{\sqrt{N!n_1!n_2!\cdots n_M!}} \sum_\sigma \sigma \ket{\psi^*(1, \cdots, n_\alpha+1, \cdots, n_\delta+1, \cdots, n_\beta-1, \cdots, n_\tau-1, \cdots, n_M)} \\
+	=& \sqrt{(n_\alpha+1)(n_\delta+1)n_\beta n_\tau} \ket{1, \cdots, n_\alpha+1, \cdots, n_\delta+1, \cdots, n_\beta-1, \cdots, n_\tau-1, \cdots, n_M}.
+\end{align*}
+
+即有：
+\[
+	\hat{a}^\dagger_\alpha \hat{a}^\dagger_\delta \hat{a}_\tau \hat{a}_\beta = \sum_{i, j} \ket{\phi_\alpha(i), \phi_\delta(j)} \bra{\phi_\beta(i), \phi_\tau(j)}.
+\]
+
+对于其他$\alpha, \beta, \delta, \tau$的大小关系，可以得到同样的表达式。
+\end{proof}
+
+\medskip
+
+\textbf{习题5.4}
+
+对全同费米子系统，用产生湮灭算符的对易关系证明：
+\begin{enumerate}
+	\item $\alpha \neq \beta$, $[\hat{n}_\alpha, \hat{n}_\beta] = 0$.
+	
+	\item $\hat{n}_\alpha$的本征值只能取$0$或者$1$。
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item 费米子产生湮灭算符满足反对易关系：
+\[
+	\{\hat{a}_i, \hat{a}^\dagger_j\} = \delta_{ij}; \ \ \{\hat{a}_i, \hat{a}_j\} = 0; \ \ \{\hat{a}^\dagger_i, \hat{a}^\dagger_j\} = 0.
+\]
+
+则当$i\neq j$时，有：
+\[
+	\hat{a}_i\hat{a}_j^\dagger = -\hat{a}_j^\dagger\hat{a}_i; \ \ \hat{a}_i \hat{a}_j = -\hat{a}_j\hat{a}_i; \ \ \hat{a}_i^\dagger\hat{a}_j^\dagger = - \hat{a}_j^\dagger \hat{a}_i^\dagger.
+\]
+
+则可以计算，当$\alpha\neq \beta$时：
+\[
+	[\hat{n}_\alpha, \hat{n}_\beta] = \hat{a}^\dagger_\alpha\hat{a}_\alpha \hat{a}_\beta^\dagger\hat{a}_\beta - \hat{a}_\beta^\dagger\hat{a}_\beta \hat{a}^\dagger_\alpha\hat{a}_\alpha = (-1)^4 \hat{a}_\beta^\dagger\hat{a}_\beta \hat{a}^\dagger_\alpha\hat{a}_\alpha - \hat{a}_\beta^\dagger\hat{a}_\beta \hat{a}^\dagger_\alpha\hat{a}_\alpha = 0.
+\]
+
+\item 注意到，对于费米子系统，有：
+\[
+	\{ \hat{a}_\alpha^\dagger, \hat{a}_\beta^\dagger\} = 0.
+\]
+
+则当$\alpha=\beta$时，$2\hat{a}_\alpha^\dagger\hat{a}_\alpha^\dagger = 0$，从而有：
+\[
+	\hat{a}_\alpha^\dagger \hat{a}_\alpha^\dagger \ket{0} = 0.
+\]
+
+对于量子态$\ket{n_1, n_2, \cdots, n_M}$，可以由产生算符作用在真空态上得到，即
+\[
+	\ket{n_1, n_2, \cdots, n_M} \equiv {a_1^\dagger}^{n_1}{a_2^\dagger}^{n_2}\cdots{a_M^\dagger}^{n_M} \ket{0}.
+\]
+
+但当$n_i\geq2$时，$\ket{n_1, n_2, \cdots, n_M} = 0$，当$n_i=0$或$1$时，$\hat{n}_i$的本征值为$0$或$1$。综上所述，$\hat{n}_\alpha$的本征值只能取$0$或者$1$。
+\end{enumerate}
+\end{proof}
+
+\medskip
+
+\textbf{习题5.5}
+
+求黑体辐射中光子的化学势。
+
+\begin{proof}
+由于黑体辐射中光子数不守恒，即产生或湮灭一个光子体系能量不发生变化，则黑体辐射中光子的化学势为$0$。
+
+对于黑体辐射，可以计算巨配分函数为：
+\[
+	\ln \varXi = \frac{\pi^2V}{45c^3\hbar^3} k_B^3 T^3.
+\]
+
+内能为：
+\[
+	U = -\frac{\partial \ln \varXi}{\partial \beta} = \frac{\pi^2V}{15c^3\hbar^3} k_B^4T^4.
+\]
+
+压强为：
+\[
+	p = \frac{1}{3}\frac{U}{V} = \frac{\pi^2}{45c^3\hbar^3} k_B^4T^4.
+\]
+
+自由能为：
+\[
+	F = -\frac{1}{3}U.
+\]
+
+则Gibbs自由能为：
+\[
+	G = F+pV = 0 = N\mu.
+\]
+
+则化学势为0.
+\end{proof}
+
+\medskip
+
+\textbf{习题5.6}
+
+当光场的单个模式处在相干态$\ket{\alpha_{k\vec{e}_z, \vec{e}_x}}$态时，求对应电场和磁场算符在该态上的平均值。
+
+\begin{proof}
+电磁场算符分别为：
+\begin{align*}
+	&\vec{E} = \sum_{\vec{k}, a} \sqrt{\frac{\hbar\omega_k}{2\epsilon_0 V}} \vec{e}_{\vec{k}, a} i (\hat{a}_{\vec{k}, a} e^{i\vec{k}\cdot\vec{r}} - \hat{a}_{\vec{k}, a}^\dagger e^{-i\vec{k}\cdot\vec{r}}) \\
+	&\vec{B} = \sum_{\vec{k}, a} \sqrt{\frac{\hbar}{2\epsilon_0 V \omega_k}} (i\vec{k})\times \vec{e}_{\vec{k}, a} (\hat{a}_{\vec{k}, a} e^{i\vec{k}\cdot\vec{r}} - \hat{a}_{\vec{k}, a}^\dagger e^{-i\vec{k}\cdot\vec{r}}) 
+\end{align*}
+
+对于相干态$\ket{\alpha_{k\vec{e}_z, \vec{e}_x}}$，满足本征值方程：
+\[
+	\hat{a}_{\vec{k}, a} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} = \alpha_{k\vec{e}_z, \vec{e}_x} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} \delta_{a,\vec{e}_x} \delta_{\vec{k}, k\vec{e}_z}.
+\]
+
+则可以计算电场和磁场算符在该态上的平均值如下：
+\begin{align*}
+	&\bra{\alpha_{k\vec{e}_z, \vec{e}_x}} \hat{\vec{E}} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} \\
+	=& \sum_{\vec{k}, a} \sqrt{\frac{\hbar\omega_k}{2\epsilon_0 V}} \vec{e}_{\vec{k}, a} i ( \bra{\alpha_{k\vec{e}_z, \vec{e}_x}} \hat{a}_{\vec{k}, a} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} e^{i\vec{k} \cdot \vec{r}} - \bra{\alpha_{k\vec{e}_z, \vec{e}_x}} \hat{a}^\dagger_{\vec{k}, a} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} e^{-i\vec{k} \cdot \vec{r}}) \\
+	=& \sqrt{\frac{\hbar\omega_k}{2\epsilon_0 V}} \vec{e}_x i (\alpha_{k\vec{e}_z, \vec{e}_x} e^{ikz} - \alpha_{k\vec{e}_z, \vec{e}_x}^* e^{-ikz}); \\
+	&\bra{\alpha_{k\vec{e}_z, \vec{e}_x}} \hat{\vec{B}} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} \\
+	=& \sum_{\vec{k}, a} \sqrt{\frac{\hbar}{2\epsilon_0 V \omega_k}} (i\vec{k})\times\vec{e}_{\vec{k}, a} (\bra{\alpha_{k\vec{e}_z, \vec{e}_x}} \hat{a}_{\vec{k}, a} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} e^{i\vec{k}\cdot \vec{r}} - \bra{\alpha_{k\vec{e}_z, \vec{e}_x}} \hat{a}^\dagger_{\vec{k}, a} \ket{\alpha_{k\vec{e}_z, \vec{e}_x}} e^{-i\vec{k} \cdot \vec{r}}) \\
+	=& \sqrt{\frac{\hbar}{2\epsilon_0 V \omega_k}} ik\vec{e}_y (\alpha_{k\vec{e}_z, \vec{e}_x} e^{ikz} - \alpha^*_{k\vec{e}_z, \vec{e}_x} e^{-ikz}).
+\end{align*}
+
+\end{proof}
+
+\end{document}

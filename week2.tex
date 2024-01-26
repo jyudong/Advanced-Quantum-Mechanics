@@ -1,0 +1,491 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第二次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{习题1.9}
+
+计算角动量分量之间的对易关系，并证明
+\[
+	[\hat{\vec{L}}^2, \hat{L}_z] = 0.
+\]
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+利用基本对易关系$[\hat{x}_i,\hat{p}_j] = i\hbar\delta_{ij}$。则有：
+\begin{align*}
+	[\hat{L}_x, \hat{L}_y] =& [\hat{y}\hat{p}_z-\hat{z}\hat{p}_y, \hat{z}\hat{p}_x-\hat{x}\hat{p}_z] = i\hbar(\hat{x}\hat{p}_y - \hat{y}\hat{p}_x) = i\hbar\hat{L}_z, \\
+	[\hat{L}_y, \hat{L}_z] =& [\hat{z}\hat{p}_x-\hat{x}\hat{p}_z, \hat{x}\hat{p}_y-\hat{y}\hat{p}_x] = i\hbar(\hat{y}\hat{p}_z - \hat{z}\hat{p}_y) = i\hbar\hat{L}_x, \\
+	[\hat{L}_z, \hat{L}_x] =& [\hat{x}\hat{p}_y-\hat{y}\hat{p}_x, \hat{y}\hat{p}_z-\hat{z}\hat{p}_y] = i\hbar(\hat{z}\hat{p}_x - \hat{x}\hat{p}_z) = i\hbar\hat{L}_y.
+\end{align*}
+利用$\hat{\vec{L}}^2 = \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2$，可以计算：
+\[
+	[\hat{\vec{L}}^2, \hat{L}_z] = [\hat{L}_x^2 + \hat{L}_y^2, \hat{L}_z] = -i\hbar(\hat{L}_x\hat{L}_y+\hat{L}_y\hat{L}_x) + i\hbar(\hat{L}_y\hat{L}_x+\hat{L}_x\hat{L}_y) = 0.
+\]
+\end{tcolorbox}
+
+\textbf{习题1.10}
+
+用Schwartz不等式证明不确定关系。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+%对于任意一个量子态$\ket{\phi}$与两个可观测量$\hat{A},\hat{B}$，考虑：
+%\begin{align*}
+%	\ket{\Phi} =& (\hat{A}-\bra{\phi}\hat{A}\ket{\phi})\ket{\phi}; \\
+%	\ket{\Psi} =& i(\hat{B}-\bra{\phi}\hat{B}\ket{\phi})\ket{\phi}.
+%\end{align*}
+%可以计算得：
+%\begin{align*}
+%	\bra{\Phi} \Phi \rangle =& \bra{\phi} (\hat{A} - \bra{\phi}\hat{A}\ket{\phi})^2 \ket{\phi}; \\
+%	\bra{\Psi} \Psi \rangle =& \bra{\phi} (\hat{B} - \bra{\phi}\hat{B}\ket{\phi})^2 \ket{\phi}; \\
+%	\bra{\Phi} \Psi \rangle =& \bra{\phi} (\hat{A}-\bra{\phi}\hat{A}\ket{\phi})i(\hat{B}-\bra{\phi}\hat{B}\ket{\phi}) \ket{\phi}
+%\end{align*}
+令$\hat{A}' = \hat{A} - \bra{\psi}\hat{A}\ket{\psi}$，$\hat{B}' = \hat{B} - \bra{\psi}\hat{B}\ket{\psi}$，则$\hat{A}'$和$\hat{B}'$为厄米算符，根据Schwartz不等式，有：
+\[
+	\bra{\psi}\hat{A}'^2\ket{\psi}\bra{\psi}\hat{B}'^2\ket{\psi} = (\bra{\psi} \hat{A}'^\dagger)(\hat{A}'\ket{\psi}) (\ket{\psi}\hat{B}'^\dagger)(\hat{B}'\ket{\psi}) \geq \left\vert \bra{\psi} \hat{A}'^\dagger \hat{B}' \ket{\psi} \right\vert^2 = \left\vert \bra{\psi} \hat{A}' \hat{B}' \ket{\psi} \right\vert^2
+\]
+记$\bra{\psi} \hat{A}' \hat{B}' \ket{\psi} = a+ib$，其中$a,b$为实数。则有：
+\[
+	\left\vert \bra{\psi} \hat{A}' \hat{B}' \ket{\psi} \right\vert^2 = a^2+b^2 = \frac{1}{4}\left( \left\vert \bra{\psi} [\hat{A}', \hat{B}'] \ket{\psi} \right\vert^2 + \left\vert \bra{\psi} \{\hat{A}', \hat{B}'\} \ket{\psi} \right\vert^2 \right) \geq \frac{1}{4} \left\vert \bra{\psi} [\hat{A}', \hat{B}'] \ket{\psi} \right\vert^2.
+\]
+则有：
+\[
+	\bra{\psi}\hat{A}'^2\ket{\psi}\bra{\psi}\hat{B}'^2\ket{\psi} \geq \frac{1}{4} \left\vert \bra{\psi} [\hat{A}', \hat{B}'] \ket{\psi} \right\vert^2.
+\]
+带入$\hat{A}' = \hat{A} - \bra{\psi}\hat{A}\ket{\psi}$，$\hat{B}' = \hat{B} - \bra{\psi}\hat{B}\ket{\psi}$，可得：
+\[
+	\bra{\psi}\hat{A}'^2\ket{\psi}\bra{\psi}\hat{B}'^2\ket{\psi} = (\Delta A)^2 (\Delta B)^2 \geq \frac{1}{4} \left\vert \bra{\psi} [\hat{A}', \hat{B}'] \ket{\psi} \right\vert^2 = \frac{1}{4} \left\vert \bra{\psi} i[\hat{A}', \hat{B}'] \ket{\psi} \right\vert^2.
+\]
+两侧开平方可得不确定关系。
+\end{tcolorbox}
+
+\textbf{习题1.11}
+
+一个$\frac{1}{2}$自旋的希尔伯特空间的基矢记为$\{\ket{0},\ket{1}\}$，其上定义的两个厄米算符为：
+\begin{align*}
+	\hat{\sigma}_z = \ket{0}\bra{0} - \ket{1}\bra{1} \\
+	\hat{\sigma}_x = \ket{0}\bra{1} + \ket{1}\bra{0}
+\end{align*}
+
+对于两个$\frac{1}{2}$自旋，其希尔伯特空间的基矢为$\{\ket{0}\otimes\ket{0}, \ket{0}\otimes\ket{1}, \ket{1}\otimes\ket{0}, \ket{1}\otimes\ket{1}\}$。在此希尔伯特空间上试证明
+\[
+	\{ \hat{\sigma}_z\otimes\hat{\sigma}_z, \hat{\sigma}_x\otimes\hat{\sigma}_x \}
+\]
+
+构成该希尔伯特空间上的厄米算符完备组。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+在该基矢表象下，俩个算符的矩阵表示为：
+\[
+	\sigma_z\otimes\sigma_z = 
+	\left(
+	\begin{matrix}
+		1 & 0 & 0 & 0 \\
+		0 & -1 & 0 & 0 \\
+		0 & 0 & -1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{matrix}
+	\right), ~~
+	\sigma_x\otimes\sigma_x = 
+	\left(
+	\begin{matrix}
+		0 & 0 & 0 & 1 \\
+		0 & 0 & 1 & 0 \\
+		0 & 1 & 0 & 0 \\
+		1 & 0 & 0 & 0
+	\end{matrix}
+	\right)
+\]
+
+显然有：$[\hat{\sigma}_z\otimes\hat{\sigma}_z, \hat{\sigma}_x\otimes\hat{\sigma}_x] = 0$。
+
+易知，$\sigma_z\otimes\sigma_z$具有两个本征值$1,-1$。
+
+对应本征值为$1$的本征向量分别为：
+\[
+	u_1 = (\begin{matrix}
+		1 & 0 & 0 & 0
+	\end{matrix})^T, ~~
+	u_2 = (\begin{matrix}
+		0 & 0 & 0 & 1
+	\end{matrix})^T.
+\]
+构造两组线性无关向量$u_1', ~u_2'$为：
+\[
+	u_1' = \frac{u_1+u_2}{\sqrt{2}} = (\begin{matrix}
+		\frac{1}{\sqrt{2}} & 0 & 0 & \frac{1}{\sqrt{2}}
+	\end{matrix})^T, ~~
+	u_2' = \frac{u_1-u_2}{\sqrt{2}} = (\begin{matrix}
+		\frac{1}{\sqrt{2}} & 0 & 0 & -\frac{1}{\sqrt{2}}
+	\end{matrix})^T.
+\]
+可以计算：
+\[
+	\sigma_x\otimes\sigma_x u_1' = u_1', ~~ \sigma_x\otimes\sigma_x u_2' = -u_2'.
+\]
+即$u_1'$为$\sigma_x\otimes\sigma_x$本征值为$1$的本征向量，$u_2'$为$\sigma_x\otimes\sigma_x$本征值为$-1$的本征向量。
+
+对应本征值为$-1$的本征向量分别为：
+\[
+	v_1 = (\begin{matrix}
+		0 & 1 & 0 & 0
+	\end{matrix})^T, ~~
+	v_2 = (\begin{matrix}
+		0 & 0 & 1 & 0
+	\end{matrix})^T.
+\]
+同样地，构造两组线性无关向量$v_1',~v_2'$为：
+\[
+	v_1' = \frac{v_1+v_2}{\sqrt{2}} = (\begin{matrix}
+		0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0
+	\end{matrix})^T, ~~
+	v_2' = \frac{v_1-v_2}{\sqrt{2}} = (\begin{matrix}
+		0 & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & 0
+	\end{matrix})^T.
+\]
+可以计算：
+\[
+	\sigma_x\otimes\sigma_x v_1' = v_1', ~~ \sigma_x\otimes\sigma_x v_2' = -v_2'.
+\]
+即$v_1'$为$\sigma_x\otimes\sigma_x$本征值为$1$的本征向量，$v_2'$为$\sigma_x\otimes\sigma_x$本征值为$-1$的本征向量。
+
+综上所述，$\{ \hat{\sigma}_z\otimes\hat{\sigma}_z, ~ \hat{\sigma}_x\otimes\hat{\sigma}_x \}$构成该希尔伯特空间上的厄米算符完备组。
+\end{tcolorbox}
+
+\textbf{习题1.12}
+
+试证明：希尔伯特空间上的线性算符$\hat{O}$满足$\hat{O}^\dagger\hat{O} = \hat{O}\hat{O}^\dagger$当且仅当算符$\hat{O}$可以分解成$\hat{O}=\hat{A}+i\hat{B}$，其中算符$\hat{A}$和$\hat{B}$是互相对易的厄米算符。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+当算符$\hat{O}$可以被分解成$\hat{O} = \hat{A}+i\hat{B}$，且$\hat{A}$和$\hat{B}$是对易的厄米算符，则有：
+\[
+	[\hat{O}, \hat{O}^\dagger] = [\hat{A}+i\hat{B}, \hat{A}-i\hat{B}] = 0.
+\]
+即$\hat{O}^\dagger\hat{O} = \hat{O}\hat{O}^\dagger$。
+
+任意一个线性算符$\hat{O}$都可以分解为$\hat{O} = \hat{A} + i\hat{B}$，其中$\hat{A}, ~ \hat{B}$为厄米算符。当算符$\hat{O}$满足$\hat{O}^\dagger\hat{O} = \hat{O}\hat{O}^\dagger$时，有：
+\[
+	[\hat{O}, \hat{O}^\dagger] = [\hat{A}+i\hat{B}, \hat{A}-i\hat{B}] = -i[\hat{A}, \hat{B}] + i[\hat{B}, \hat{A}] = -2i[\hat{A}, \hat{B}] = 0.
+\]
+即$[\hat{A}, \hat{B}] = 0$。
+
+综上所述，希尔伯特空间上的线性算符$\hat{O}$满足$\hat{O}^\dagger\hat{O} = \hat{O}\hat{O}^\dagger$当且仅当算符$\hat{O}$可以分解成$\hat{O}=\hat{A}+i\hat{B}$，其中算符$\hat{A}$和$\hat{B}$是互相对易的厄米算符。
+\end{tcolorbox}
+
+\textbf{习题1.13}
+
+利用幺正变换重新推导
+\[
+	\bra{b} \hat{O} \ket{b'} = \sum_{a,a'} \bra{b} a \rangle \bra{a} \hat{O} \ket{a'} \bra{a'} b' \rangle.
+\]
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+利用幺正变换
+\[
+	\ket{b} = \hat{U} \ket{a}, ~ \hat{U} = \sum \ket{b}\bra{a}.
+\]
+可以计算：
+\begin{align*}
+	\bra{b} \hat{O} \ket{b'} =& \bra{b} \hat{U}^\dagger \hat{U} \hat{O} \hat{U}^\dagger\hat{U} \ket{b} \\
+	=& \sum_{nmlk} \bra{b} a_n \rangle \bra{b_n} b_m \rangle \bra{a_m} \hat{O} \ket{a_l} \bra{b_l} b_k \rangle \bra{a_k} a \rangle \\
+	=& \sum_{nl} \bra{b} a_n \rangle \bra{a_n} \hat{O} \ket{a_l} \bra{a_l} b' \rangle
+\end{align*}
+\end{tcolorbox}
+
+\textbf{习题1.14}
+
+$\hat{A}$是厄米算符，幺正变换对其作用可写为
+\[
+	\hat{A}' = \hat{U} \hat{A} \hat{U}^\dagger
+\]
+
+证明$\hat{A}'$也为厄米算符，且它和$\hat{A}$有相同的本征值。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+因为$\hat{A}$为厄米算符，则有
+\[
+	\hat{A}^\dagger = \hat{A}.
+\]
+则可以计算：
+\[
+	\hat{A}'^\dagger = (\hat{U}\hat{A}\hat{U}^\dagger)^\dagger = \hat{U} \hat{A}^\dagger \hat{U}^\dagger = \hat{U} \hat{A} \hat{U}^\dagger = \hat{A}'.
+\]
+对于$\hat{A}$的任意本征态$\ket{a}$，满足本征值方程
+\[
+	\hat{A} \ket{a} = a \ket{a}.
+\]
+都可以选取$\ket{a'} = \hat{U} \ket{a}$，可以计算：
+\[
+	\hat{A'} \ket{a'} = \hat{U}\hat{A}\hat{U}^\dagger \hat{U} \ket{a} = \hat{U} \hat{A} \ket{a} = a\hat{U}\ket{a} = a\ket{a'}.
+\]
+即$\hat{A'}$与$\hat{A}$具有相同本征值。
+\end{tcolorbox}
+
+\textbf{习题1.15}
+
+证明$\hat{U} = \sum_n e^{i\theta_n}\ket{c_n}\bra{c_n} = e^{i\sum_n \theta_n\ket{c_n} \bra{c_n}} = e^{i\hat{A}}$。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+令$\hat{A} = \sum_n \theta_n \ket{c_n} \bra{c_n}$，则有：
+\[
+	\hat{A}^2 = \sum_{n,n'} \theta_n \theta_n' \ket{c_n}\bra{c_n} c_n' \rangle \bra{c_n'} = \sum_n \theta_n^2 \ket{c_n}\bra{c_n}.
+\]
+即
+\[
+	\hat{A}^n = \sum_{m} \theta_m^n \ket{c_m} \bra{c_m}.
+\]
+则有：
+\begin{align*}
+	f(\hat{A}) =& e^{i\hat{A}} = 1 + \sum_{n=1}^\infty \frac{1}{n!} i^n \hat{A}^n \\
+	=& \sum_{n=0}^\infty \frac{i^n}{n!} \sum_{m} \theta_m^n \ket{c_m} \bra{c_m} \\
+	=& \sum_m \ket{c_m}\bra{c_m} \sum_{n=0}^\infty \frac{(i\theta_m)^n}{n!} \\
+	=& \sum_m e^{i\theta_m} \ket{c_m} \bra{c_m} \\
+	=& \sum_n e^{i\theta_n} \ket{c_n} \bra{c_n}.
+\end{align*}
+\end{tcolorbox}
+
+\textbf{习题1.16}
+
+计算$\hat{\sigma}_y$表象下Pauli矩阵的表示。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+Pauli矩阵在$\hat{\sigma}_z$算符本征基矢下的表示分别为：
+\[
+	\sigma_x = \left(
+	\begin{matrix}
+		0 & 1 \\
+		1 & 0
+	\end{matrix}\right), ~~
+	\sigma_y = \left(
+	\begin{matrix}
+		0 & -i \\
+		i & 0
+	\end{matrix}\right), ~~
+	\sigma_z = \left(
+	\begin{matrix}
+		1 & 0 \\
+		0 & -1
+	\end{matrix}\right).
+\]
+将$\sigma_y$对角化，可以计算其本征值满足方程为：
+\[
+	\mathbf{det}(\sigma_y - \lambda \mathbf{I}) = \left\vert 
+	\begin{matrix}
+		-\lambda & -i \\
+		i & -\lambda
+	\end{matrix}\right\vert = \lambda^2 - 1 = 0.
+\]
+即两个本征值为$\lambda_1 = 1, \lambda_2 = -1$。
+
+对应本征值$\lambda_1 = 1$的本征态矢量为：$u_1 = \left(\begin{matrix} -\frac{i}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{matrix}\right)^T$;
+
+对应本征值$\lambda_2 = -1$的本征态矢量为：$u_2 = \left(\begin{matrix} \frac{i}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{matrix}\right)^T$。
+
+即幺正矩阵$U = \left(\begin{matrix}
+	-\frac{i}{\sqrt{2}} & \frac{i}{\sqrt{2}} \\
+	\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+\end{matrix}\right)$满足：
+\[
+	UU^\dagger = 1; ~~ U^\dagger\sigma_y U = \left(\begin{matrix}
+		1 & 0 \\
+		0 & -1
+	\end{matrix}\right).
+\]
+同样的，可以计算：
+\[
+	U^\dagger \sigma_x U = \left( \begin{matrix}
+		0 & i \\
+		-i & 0
+	\end{matrix}\right), ~~
+	U^\dagger \sigma_z U = \left( \begin{matrix}
+		0 & -1 \\
+		-1 & 0
+	\end{matrix}\right).
+\]
+综上所述，在$\hat{\sigma}_y$表象下，Pauli矩阵的表示为：
+\[
+	(\sigma_x)_y = \left( \begin{matrix}
+		0 & i \\
+		-i & 0
+	\end{matrix}\right), ~~
+	(\sigma_y)_y = \left( \begin{matrix}
+		1 & 0 \\
+		0 & -1
+	\end{matrix}\right), ~~
+	(\sigma_z)_y = \left( \begin{matrix}
+		0 & -1 \\
+		-1 & 0
+	\end{matrix}\right).
+\]
+\end{tcolorbox}
+
+\textbf{习题1.17}
+
+试求在动量$\hat{p}$表象下算符$\hat{x}$和$\hat{p}$的表示。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+在动量表象下，动量算符的表示为：
+\[
+	\bra{p} \hat{p} \ket{p'} = p\delta(p-p').
+\]
+在动量表象下，坐标算符的表示为：
+\begin{align*}
+	\bra{p} \hat{x} \ket{p'} =& \int dx x\bra{p} x \rangle \bra{x} p' \rangle \\
+	=& \frac{1}{2\pi\hbar} \int dx x e^{ix(p'-p)/\hbar} \\
+	=& \frac{i}{2\pi} \int dx \frac{\partial}{\partial p} e^{ix(p'-p)/\hbar} \\
+	=& \frac{i}{2\pi} \frac{\partial}{\partial p} \int dx e^{ix(p'-p)/\hbar} \\
+	=& i\hbar \frac{\partial}{\partial p} \delta(p'-p).
+\end{align*}
+\end{tcolorbox}
+
+\textbf{习题1.18}
+
+证明$\bra{n} m \rangle = \delta_{mn}$。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+由$\ket{n} = \frac{\hat{a}^{\dagger n}}{\sqrt{n!}}\ket{0}$，可以计算：
+\[
+	\bra{n} m \rangle = \bra{0} \frac{\hat{a}^n \hat{a}^{\dagger m}}{\sqrt{n!m!}} \ket{0}.
+\]
+可以计算：
+\begin{align*}
+	\hat{a}\hat{a}^\dagger =& \hat{n}+1; \\
+	\hat{a}\hat{a}\hat{a}^\dagger\hat{a}^\dagger =& \hat{a}(\hat{n}+1)\hat{a}^\dagger \\
+	=& (\hat{n}+1)\hat{a}\hat{a}^\dagger + \hat{a}\hat{a}^\dagger \\
+	=& (\hat{n}+2)\hat{a}\hat{a}^\dagger \\
+	=& (\hat{n}+2)(\hat{n}+1)
+\end{align*}
+假设当$n=k$时，有:
+\[
+	\hat{a}^k\hat{a}^{\dagger k} = \prod_{i=1}^k(\hat{n}+i).
+\]
+可以验证，当$n=k+1$时，有：
+\begin{align*}
+	\hat{a}^{k+1}\hat{a}^{\dagger (k+1)} =& \hat{a}\hat{a}^k\hat{a}^{\dagger k}\hat{a}^\dagger \\
+	=& \hat{a} \prod_{i=1}^k(\hat{n}+i) \hat{a}^\dagger \\
+	=& \prod_{i=1}^k(\hat{n}+1+i)\hat{a}\hat{a}^\dagger \\
+	=& \prod_{i=2}^{k+1}(\hat{n}+i)(\hat{n}+1) \\
+	=& \prod_{i=1}^{k+1} (\hat{n}+i).
+\end{align*}
+则容易得到，当$n=m$时，有：
+\[
+	\langle n \vert n \rangle = \bra{0} \frac{\prod_{i=1}^n (\hat{n}+1)}{n!} \ket{0} = \frac{n!}{n!} \bra{0} 0 \rangle = 1.
+\]
+当$n\neq m$时，不妨取$n < m$，令$l=m-n>0$。则有：
+\[
+	\bra{n} m \rangle = \bra{0} \frac{\hat{a}^n\hat{a}^{\dagger (n+l)}}{\sqrt{n!m!}} \ket{0} = \frac{1}{\sqrt{n!m!}} \bra{0} \prod_{i=1}^n (\hat{n}+i) \hat{a}^{\dagger l} \ket{0} = \sqrt{\frac{n!}{m!}} \bra{0} \hat{a}^{\dagger l} \ket{0} = 0.
+\]
+其中利用了$\bra{0} \hat{a}^\dagger = 0$.
+
+同样的，当$n>m$时，令$s = n-m$。则有：
+\[
+	\bra{n} m \rangle = \bra{0} \frac{\hat{a}^{s+m}\hat{a}^{\dagger m}}{\sqrt{n!m!}} \ket{0} = \frac{1}{\sqrt{n!m!}} \bra{0} \hat{a}^s \prod_{i=1}^m (\hat{n}+i) \ket{0} = \sqrt{\frac{m!}{n!}} \bra{0} \hat{a}^s \ket{0} = 0.
+\]
+其中利用了$\hat{a} \ket{0} = 0$.
+
+综上所述，$\bra{n} m \rangle = \delta_{mn}$。
+\end{tcolorbox}
+
+\textbf{习题1.19}
+
+求粒子数表象下$\hat{a}$和$\hat{a}^\dagger$的表示。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+注意到对于$\hat{a}$和$\hat{a}^\dagger$有：
+\[
+	\hat{n}\hat{a} \ket{n} = (n-1) \hat{a}\ket{n}, ~ \hat{n}\hat{a}^\dagger \ket{n} = (n+1) \hat{a}^\dagger\ket{n}, ~ \hat{n} \ket{n} = n \ket{n}.
+\]
+则有：
+\[
+	\hat{a} \ket{n} = \lambda_1 \ket{n-1}; ~ \hat{a}^\dagger \ket{n} = \lambda_2 \ket{n+1}.
+\]
+利用$\hat{n} = \hat{a}^\dagger \hat{a}$，可以计算：
+\[
+	\hat{n}\ket{n} = \hat{a}^\dagger \hat{a} \ket{n} = \lambda_2\lambda_1 \ket{n}
+\]
+利用正交归一性，则有：
+\[
+	\bra{n}\hat{a}^\dagger\hat{a} \ket{n} = \bra{n} \hat{n} \ket{n} = n = \vert \lambda_1 \vert^2 \bra{n-1} n-1 \rangle = \vert \lambda_1 \vert^2
+\]
+\[
+	\bra{n}\hat{a}\hat{a}^\dagger\ket{n} = \bra{n}(\hat{n}+1)\ket{n} = n+1 = \vert \lambda_2 \vert^2 \bra{n+1} n+1 \rangle = \vert \lambda_2 \vert^2
+\]
+选取相位因子为$0$，则有：
+\[
+	\lambda_1 = \sqrt{n}, ~ \lambda_2 = \sqrt{n+1}.
+\]
+即：
+\[
+	\hat{a} \ket{n} = \sqrt{n} \ket{n-1}; ~ \hat{a}^\dagger \ket{n} = \sqrt{n+1} \ket{n+1}.
+\]
+则在粒子数表象下，$\hat{a}$和$\hat{a}^\dagger$的表示分别可以写为：
+\begin{align*}
+	\bra{m} \hat{a} \ket{n} =& \sqrt{n} \bra{m} n-1 \rangle = \sqrt{n} \delta_{m,n-1}; \\
+	\bra{m} \hat{a}^\dagger \ket{n} =& \sqrt{n+1} \bra{m} n+1 \rangle = \sqrt{n+1} \delta_{m,n+1}.
+\end{align*}
+写成矩阵形式，为：
+\begin{align*}
+	a =& \left( \begin{matrix}
+		0 & \sqrt{1} & 0 & 0 & \cdots \\
+		0 & 0 & \sqrt{2} & 0 & \cdots \\
+		0 & 0 & 0 & \sqrt{3} & \cdots \\
+		0 & 0 & 0 & 0 & \cdots \\
+		\vdots & \vdots & \vdots & \vdots & \vdots & 
+	\end{matrix} \right); \\
+	a^\dagger =& \left( \begin{matrix}
+		0 & 0 & 0 & 0 & \cdots \\
+		\sqrt{1} & 0 & 0 & 0 & \cdots \\
+		0 & \sqrt{2} & 0 & 0 & \cdots \\
+		0 & 0 & \sqrt{3} & 0 & \cdots \\
+		\vdots & \vdots & \vdots & \vdots & \vdots & 
+	\end{matrix} \right).
+\end{align*}
+\end{tcolorbox}
+
+\textbf{习题1.20}
+
+求本征波函数$\langle x \vert n \rangle$。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+在粒子数表象下，基矢$\ket{n}$可以由$\hat{a}^\dagger$不断作用在$\ket{0}$上得到，即:
+\[
+	\ket{n} = \frac{(\hat{a}^\dagger)^n}{\sqrt{n!}} \ket{0}.
+\]
+利用$\hat{a}\ket{0} = 0$，有：
+\[
+	\bra{x} \hat{a} \ket{0} = \frac{1}{\sqrt{2}}\left( \frac{x}{x_0}+\frac{\hbar}{p_0} \frac{\partial}{\partial x} \right) H_0(x) = 0.
+\]
+其中$\varphi_0(x) = \langle x \vert 0 \rangle$。可以解得：
+\[
+	\varphi_0(x) = Ce^{-\frac{M\omega}{2\hbar}x^2}.
+\]
+其中$C$为归一化系数。利用归一性，可以计算系数$C$：
+\[
+	\int_{-\infty}^\infty \vert \varphi_0(x) \vert^2 \,dx = \vert C \vert^2 \int_{-\infty}^\infty e^{-\frac{M\omega}{\hbar}x^2}\,dx = \vert C \vert^2 \sqrt{\frac{\pi\hbar}{M\omega}} = 1.
+\]
+取相位因子为$0$，则有：
+\[
+	\varphi_0(x) = \left( \frac{M\omega}{\pi\hbar} \right)^{1/4} e^{-\frac{M\omega}{2\hbar}x^2}.
+\]
+则本征波函数为：
+\begin{align*}
+	\bra{x} n \rangle =& \bra{x} \frac{(\hat{a}^\dagger)^n}{\sqrt{n!}} \ket{0} = \frac{1}{\sqrt{2^nn!}} \left( \frac{x}{x_0}-\frac{\hbar}{p_0} \frac{d}{d x} \right)^n \varphi_0(x) \\
+	=& \sqrt{\frac{\hbar^n}{(2M\omega)^nn!}} \left( \frac{M\omega}{\hbar} x - \frac{d}{d x} \right)^n \varphi_0(x).
+\end{align*}
+可以计算：
+\[
+	\varphi_1(x) = \left[ \frac{4}{\pi}\left(\frac{M\omega}{\hbar}\right)^3 \right]^{1/4} xe^{-\frac{M\omega}{2\hbar} x^2},~ \varphi_2(x) = \left( \frac{M\omega}{4\pi\hbar} \right)^{1/4} \left( \frac{2M\omega}{\hbar}x^2 - 1 \right) e^{-\frac{M\omega}{2\hbar}x^2}.
+\]
+\end{tcolorbox}
+\end{document}
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\end{tcolorbox}

@@ -1,0 +1,166 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第七次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{习题4.1}
+
+试证明：
+\[
+	H \ket{\psi_k^-} = E_k \ket{\psi_k^-}.
+\]
+
+\begin{proof}
+根据讲义内容可得：
+\[
+	\Omega(t+s) = e^{iH(t+s)} e^{-iH_0(t+s)} = e^{iHs} \Omega(t) e^{-iH_0s}.
+\]
+
+当$t\to +\infty$时，有：
+\[
+	\Omega_- = e^{iHs} \Omega_- e^{-iH_0s} = \Omega_- + is(H\Omega_- - \Omega_-H_0) + \mathcal{O}(s^2).
+\]
+
+即有：
+\[
+	H\Omega_- = \Omega_- H_0.
+\]
+
+从而可以计算：
+\[
+	H \ket{\psi_k^-} = H\Omega_- \ket{k} = \Omega_- H_0 \ket{k} = E_k \Omega_- \ket{k} = E_k \ket{\psi_k^-}.
+\]
+\end{proof}
+
+\medskip
+
+\textbf{习题4.2}
+
+证明散射矩阵$S$是幺正的。
+
+\begin{proof}
+散射矩阵为；
+\[
+	S = U_I(+\infty, -\infty) = U_I(+\infty, 0) U_I(0, -\infty) = \Omega_-^\dagger \Omega_+.
+\]
+
+可以计算：
+\[
+	S^\dagger S = \Omega_+^\dagger \Omega_- \Omega_-^\dagger \Omega_+.
+\]
+
+利用$\bra{\psi_{k'}^\pm} \psi_k^\pm \rangle = \bra{k'} \Omega_\pm^\dagger \Omega_\pm \ket{k} = \delta(k'-k)$，可得：
+\[
+	\Omega_\pm^\dagger \Omega_\pm = 1.
+\]
+
+利用
+\[
+	\ket{\psi_k^+} = \Omega_+ \ket{k}, \ \ \ \ket{\psi_k^-} = \Omega_-\ket{k}.
+\]
+
+可以将$\Omega_\pm$形式上写作：
+\[
+	\Omega_+ = \int dk \ket{\psi_k^+} \bra{k}; \ \ \ \Omega_- = \int dk \ket{\psi_k^-} \bra{k}.
+\]
+
+则可以计算：
+\begin{align*}
+	S^\dagger S =& \Omega_+^\dagger \int dk \ket{\psi_k^-} \bra{k} \int dk' \ket{k'} \bra{\psi_{k'}^-} \Omega_+ \\
+	=& \Omega_+^\dagger \int dk \ket{\psi_k^-} \bra{\psi_k^-} \Omega_+ \\
+	=& \int dk_1 \ket{k_1}\bra{\psi_{k_1}^+} (1-\sum_k \ket{\phi_k} \bra{\phi_k}) \int dk_2 \ket{\psi_{k_2}^+} \bra{k_2} \\
+	=& \int dk_1 dk_2 \ket{k_1} \bra{k_2} \delta(k_1-k_2) \\
+	=& \int dk_1 \ket{k_1} \bra{k_1} \\
+	=& 1.
+\end{align*}
+
+其中，$\ket{\phi_k}$为$H$的束缚态，完备性关系为：
+\[
+	\int dk \ket{\psi_k^-} \bra{\psi_k^-} + \sum_k \ket{\phi_k} \bra{\phi_k} = 1.
+\]
+
+此外，由于$\ket{\phi_k}$为$H$的本征值为负数的本征态，$\ket{\phi_k^+}$为$H$的本征值为正数的本征态，则有正交关系：
+\[
+	\bra{\phi_k} \psi_{k}^+ \rangle = 0.
+\]
+
+类似地，可以计算：
+\begin{align*}
+	SS^\dagger =& \Omega_-^\dagger \Omega_+ \Omega_+^\dagger \Omega_- \\
+	=& \Omega_-^\dagger \int dk \ket{\psi_k^+} \bra{k} \int dk' \ket{k'} \bra{\psi_{k'}^+} \Omega_- \\
+	=& \Omega_-^\dagger \int dk \ket{\psi_k^+} \bra{\psi_k^+} \Omega_- \\
+	=& \int dk_1 \ket{k_1} \bra{\psi_{k_1}^-} (1-\sum_{k}\ket{\phi_k'}\bra{\phi_k'}) \int dk_2 \ket{\psi_{k_2}^-} \bra{k_2} \\
+	=& \int dk_1 dk_2 \ket{k_1} \bra{k_2} \delta(k_1-k_2) \\
+	=& \int dk_1 \ket{k_1} \bra{k_1} \\
+	=& 1.
+\end{align*}
+
+即有：
+\[
+	SS^\dagger = S^\dagger S = 1.
+\]
+
+即散射矩阵$S$是幺正的。
+%\color{blue}
+%如果我们从散射矩阵定义出发，可以考虑：
+%\[
+%	S = U_I(+\infty, -\infty) = \lim_{t\to+\infty} U_I(+t, -t).
+%\]
+%
+%那么可以计算：
+%\[
+%	S^\dagger S = \lim_{t'\to +\infty} \lim_{t\to +\infty} U_I(-t', +t')  U_I(+t, -t)
+%\]
+%
+%看起来似乎行不通。
+\end{proof}
+
+\medskip
+%\color{black}
+
+\textbf{习题4.3}
+
+求解球面出射波$\bra{\vec{r}} \phi \rangle = \frac{1}{(2\pi)^{3/2}} \frac{e^{ikr}}{r}$的几率流分布。并讨论其当$r\to \infty$时的极限。
+
+\begin{proof}
+几率流密度算符为：
+\[
+	\vec{J}(\vec{r}) = \frac{1}{2M} (\ket{\vec{r}} \bra{\vec{r}} \vec{p} + \vec{p} \ket{\vec{r}} \bra{\vec{r}}).
+\]
+
+则可以计算几率流为：
+\begin{align*}
+	\bra{\phi} \vec{J} \ket{\phi} =& \frac{1}{2M} (\bra{\phi} \vec{r} \rangle \bra{\vec{r}} \hat{\vec{p}} \ket{\phi} + \bra{\phi} \hat{\vec{p}} \ket{\vec{r}} \bra{\vec{r}} \phi \rangle) \\
+	=& \frac{1}{2M} \frac{1}{(2\pi)^3} \left( \frac{e^{-ikr}}{r} (-i\hbar\nabla) \frac{e^{ikr}}{r} + \left( -i\hbar\nabla \frac{e^{ikr}}{r} \right)^* \frac{e^{ikr}}{r} \right) \\
+	=& \frac{1}{2M} \frac{1}{(2\pi)^3} \left( \hbar \frac{2kr}{r^3} \vec{e}_r \right) \\
+	=& \frac{1}{(2\pi)^3} \frac{\hbar k}{Mr^2} \vec{e}_r.
+\end{align*}
+
+其中$\nabla = \frac{\partial}{\partial r} \vec{e}_r + \frac{1}{r}\frac{\partial}{\partial \theta} \vec{e}_\theta + \frac{1}{r\sin\theta} \frac{\partial}{\partial \phi} \vec{e}_\phi$。当$r\to\infty$时，几率流满足：
+\[
+	\bra{\phi} \vec{J} \ket{\phi} \propto \frac{1}{r^2} \vec{e}_r.
+\]
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,137 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第五周作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{习题1：}
+
+取$L_1 = \sigma_z, \ \gamma_1 = \gamma, \ \gamma_{\alpha\geq 2} = 0, \ H = 0$, 求解Lindblad方程。
+\[
+	\dot{\rho}(t) = \gamma \left( \sigma_z\rho\sigma_z - \frac{1}{2}\{ \sigma_z\sigma_z, \rho \} \right)
+\]
+
+讨论其稳态性质。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+二能级系统密度矩阵总可以写作如下形式：
+\[
+	\rho = \frac{\mathbf{I} + \vec{r} \cdot \vec{\sigma}}{2}.
+\]
+则对时间求导可得：
+\[
+	\dot{\rho} = \frac{1}{2} \vec{v}\cdot\vec{\sigma}.
+\]
+可以计算：
+\[
+	\sigma_z \rho = \frac{\sigma_z+ix\sigma_y-iy\sigma_x+z\mathbf{I}}{2}.
+\]
+\[
+	\sigma_z\rho\sigma_z = \frac{\mathbf{I} - x\sigma_x - y\sigma_y + z\sigma_z}{2}.
+\]
+\[
+	\{ \sigma_z\sigma_z, \rho \} = \{ \mathbf{I}, \rho \} = 2\rho.
+\]
+\[
+	\sigma_z\rho\sigma_z - \frac{1}{2}\{\sigma_z\sigma_z, \rho\} = -(x\sigma_x+y\sigma_y).
+\]
+则Lindblad方程为：
+\[
+	\dot{\rho} = \frac{1}{2}(v_x\sigma_x+v_y\sigma_y+v_z\sigma_z) = -\gamma(x\sigma_x+y\sigma_y).
+\]
+其中$v_i = \dot{x}_i = \frac{dx_i}{dt}$，其中$i = x, y, z$。则有如下常微分方程：
+\begin{align*}
+	\frac{dx}{dt} =& -2\gamma x; \\
+	\frac{dy}{dt} =& -2\gamma y; \\
+	\frac{dz}{dt} =& 0.
+\end{align*}
+则有：
+\[
+	x(t) = x_0 e^{-2\gamma t}; \ \ y(t) = y_0 e^{-2\gamma t}; \ \ z(t) = z_0.
+\]
+当$t\to \infty$时，有：
+\[
+	\lim_{t\to\infty} x(t) = 0; \ \ \lim_{t\to\infty} y(t) = 0; \ \ \lim_{t\to\infty} z(t) = z_0.
+\]
+即当时间趋向于无穷时，体系状态处于Bloch球z轴上，且具体位置取决于体系初始状态。
+\end{tcolorbox}
+
+\textbf{习题2：}
+
+证明算符$\hat{A} = a\hat{L}+b\hat{S}$满足角动量算符对易关系，当且仅当$a=b=1$或$a=1,b=0$或$a=0,b=1$。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+可以计算：
+\begin{align*}
+	[\hat{A}_\alpha, \hat{A}_\beta] =& [a\hat{L}_\alpha+b\hat{S}_\alpha, a\hat{L}_\beta+b\hat{S}_\beta] \\
+	=& a^2[\hat{L}_\alpha, \hat{L}_\beta] + b^2[\hat{S}_\alpha, \hat{S}_\beta] \\
+	=& a^2 i\hbar \epsilon_{\alpha\beta\gamma} \hat{L}_\gamma + b^2 i\hbar \epsilon_{\alpha\beta\gamma} \hat{S}_\gamma \\
+	=& i\hbar\epsilon_{\alpha\beta\gamma} (a^2\hat{L}_\gamma+b^2\hat{S}_\gamma) \\
+	=& i\hbar\epsilon_{\alpha\beta\gamma} \hat{A}_\gamma \\
+	=& i\hbar\epsilon_{\alpha\beta\gamma} (a\hat{L}_\gamma+b\hat{S}_\gamma).
+\end{align*}
+则有：
+\[
+	a^2 = a, \ \ b^2 = b.
+\]
+即$a$和$b$的取值为$0$或$1$。当$a=b=0$时，算符为$0$没有意义，因此当算符$\hat{A} = a\hat{L}+b\hat{S}$满足角动量对易关系，当且仅当$a=b=1$或$a=1,b=0$或$a=0,b=1$。
+\end{tcolorbox}
+
+\textbf{习题3：}
+
+写出自旋$3/2$算符$S_\alpha, \ (\alpha = x, y, z)$的矩阵表示。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+选取$\hat{S}^2$和$\hat{S}_z$的共同本征基矢，则有：
+\begin{align*}
+	\bra{l'm'} \hat{S}_z \ket{lm} =& m\hbar \delta_{ll'} \delta_{mm'}; \\
+	\bra{l'm'} \hat{S}_x \ket{lm} =& \frac{1}{2} \bra{l'm'} (\hat{S}_+ + \hat{S}_-) \ket{lm} \\
+	=& \frac{\hbar}{2} (\sqrt{(l-m)(l+m+1)} \delta_{ll'} \delta_{m',m+1} + \sqrt{(l+m)(l-m+1)} \delta_{ll'} \delta_{m',m-1}); \\
+	\bra{l'm'} \hat{S}_y \ket{lm} =& \frac{1}{2i} \bra{l'm'} (\hat{S}_+ - \hat{S}_-) \ket{lm} \\
+	=& \frac{\hbar}{2i} (\sqrt{(l-m)(l+m+1)} \delta_{ll'} \delta_{m',m+1} - \sqrt{(l+m)(l-m+1)} \delta_{ll'} \delta_{m',m-1}).
+\end{align*}
+则矩阵表示为：
+\begin{align*}
+	S_z =& \frac{\hbar}{2} \left( \begin{matrix}
+		3 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & -1 & 0 \\
+		0 & 0 & 0 & -3
+	\end{matrix} \right); \\ 
+	S_x =& \frac{\hbar}{2} \left( \begin{matrix}
+		0 & \sqrt{3} & 0 & 0 \\
+		\sqrt{3} & 0 & 2 & 0 \\
+		0 & 2 & 0 & \sqrt{3} \\
+		0 & 0 & \sqrt{3} & 0
+	\end{matrix} \right); \\ 
+	S_y =& \frac{\hbar}{2} \left( \begin{matrix}
+		0 & -\sqrt{3}i & 0 & 0 \\
+		\sqrt{3}i & 0 & -2i & 0 \\
+		0 & 2i & 0 & -\sqrt{3}i \\
+		0 & 0 & \sqrt{3}i & 0
+	\end{matrix} \right).
+\end{align*}
+\end{tcolorbox}
+\end{document}
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\end{tcolorbox}

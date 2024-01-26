@@ -1,0 +1,404 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\usepackage{mathtools}
+\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第三次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{习题1.21}
+
+在相干态表象下求$\hat{a}$和$\hat{a}^\dagger\hat{a}$的本征值和本征态。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+可以计算：
+\[
+	\hat{a} \ket{\bar{\alpha}} = \sum_{n=1}^{\infty} \frac{\alpha^n}{\sqrt{n!}} \hat{a} \ket{n} + \hat{a} \ket{0} = \alpha \sum_{n=1}^\infty \frac{\alpha^{n-1}}{\sqrt{(n-1)!}} \ket{n-1} = \alpha \sum_{n=0}^\infty \frac{\alpha^n}{\sqrt{n!}} \ket{n} = \alpha \ket{\bar{\alpha}}.
+\]
+将$\hat{a}^\dagger\hat{a}$本征态记作$\ket{\psi}$，本征值记作$\lambda$，在相干态表象下本征值方程为：
+\[
+	\bra{\bar{\alpha}} \hat{a}^\dagger\hat{a} \ket{\psi} = \alpha^* \frac{\partial}{\partial \alpha^*} \bra{\bar{\alpha}} \psi \rangle = \lambda \bra{\bar{\alpha}} \psi \rangle.
+\]
+不难注意到，当$\bra{\bar{\alpha}} \psi \rangle = c_n (\alpha^*)^{n}$时，上述本征值方程为：
+\[
+	\alpha^* \frac{\partial}{\partial \alpha^*} c_n (\alpha^*)^{n} = nc_n (\alpha^*)^{n} = \lambda c_n (\alpha^*)^{n}.
+\]
+即$\lambda = n$，由归一化条件$\bra{\psi}\psi\rangle = \int d\mu(\alpha) \bra{\psi} \bar{\alpha}\rangle \bra{\bar{\alpha}} \psi\rangle = 1$可以计算$c_n = \frac{1}{\sqrt{n!}}$，即$\hat{a}^\dagger\hat{a}$的本征态$\ket{\psi}$满足$\bra{\bar{\alpha}} \psi \rangle = \frac{(\alpha^*)^n}{\sqrt{n!}}$本征值为$n$。
+
+注意到$\bra{\bar{\alpha}} = \sum_{n} \frac{(\alpha^*)^n}{\sqrt{n!}}\bra{n}$，则$\hat{a}^\dagger\hat{a}$的本征态为$\ket{\psi} = \ket{n}$。
+
+\end{tcolorbox}
+
+\textbf{习题1.22}
+
+证明任意密度矩阵算符满足
+\[
+	\mathbf{Tr}(\hat{\rho}^2) \leq 1.
+\]
+
+当且仅当
+\[
+	\mathbf{Tr}(\hat{\rho}^2) = 1.
+\]
+
+体系处于纯态。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+对于任意密度矩阵算符$\hat{\rho} = \sum_i p_i \ket{\psi_i} \bra{\psi_i}$，可以计算：
+\[
+	\hat{\rho}^2 = \sum_{i,j} p_i p_j \ket{\psi_i} \bra{\psi_i} \psi_j \rangle \bra{\psi_j}.
+\]
+则可以计算：
+\[
+	\mathbf{Tr}(\hat{\rho}^2) = \sum_{i,j} p_i p_j \bra{\psi_j} \psi_i \rangle \bra{\psi_i} \psi_j \rangle = \sum_{i,j} p_i p_j \vert \bra{\psi_i} \psi_j \rangle \vert^2 \leq \sum_{i,j} p_i p_j = \left(\sum_i p_i\right) \left( \sum_j p_j \right) = 1.
+\]
+对于纯态，密度矩阵算符可以写作$\hat{\rho} = \ket{\psi}\bra{\psi}$，则容易计算：
+\[
+	\mathbf{Tr}(\hat{\rho}^2) = \mathbf{Tr}(\hat{\rho}) = 1.
+\]
+对于任意密度矩阵算符$\hat{\rho} = \sum_i p_i \ket{\psi_i}\bra{\psi_i}$，因为其为厄米算符，所以总可以选取一个表象，使得密度矩阵算符对角化，记作$\hat{\rho} = \sum_j p_j' \ket{\phi_j}\bra{\phi_j}$，其中$\bra{\phi_i} \phi_j \rangle = \delta_{ij}$。则可以计算：
+\[
+	\mathbf{Tr}(\hat{\rho}^2) = \sum_{i,j}p_i'p_j' \vert \bra{\phi_i} \phi_j \rangle \vert^2 = \sum_{i}p_i'^2 \leq \left( \sum_i p_i' \right)^2 = 1.
+\]
+等号成立的条件为只存在唯一一个$p' = 1$。即此时密度矩阵算符为：
+\[
+	\hat{\rho} = \ket{\phi} \bra{\phi}.
+\]
+即体系处于纯态。
+
+综上所述，密度矩阵算符满足$\mathbf{Tr}(\hat{\rho}^2) \leq 1$，当且仅当$\mathbf{Tr}(\hat{\rho}^2) = 1$时体系处于纯态。
+\end{tcolorbox}
+
+\textbf{习题1.23}
+
+证明二能级系统的密度算符矩阵可以写作
+\[
+	\hat{\rho} = \frac{\mathbf{I} + \vec{r} \cdot \vec{\sigma}}{2}
+\]
+
+其中$\vec{\sigma} = \sigma_x \vec{e}_x + \sigma_y \vec{e}_y + \sigma_z \vec{e}_z$，$\sigma_x,\sigma_y,\sigma_z$为Pauli矩阵，$\vec{e}_x,\vec{e}_y,\vec{e}_z$为$x, y, z$方向的单位矢量。矢量$\vec{r}$满足：
+\[
+	\vert \vec{r} \vert = r \leq 1.
+\]
+
+当且仅当$r=1$时，体系处于纯态。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+二能级系统的密度算符矩阵可以写作：
+\[
+	\hat{\rho} = p \ket{\psi_1}\bra{\psi_1} + (1-p)\ket{\psi_2}\bra{\psi_2}.
+\]
+考虑这个算符在$\{ \ket{u_1}, \ket{u_2} \}$表象下的矩阵元可以计算得：
+\begin{align*}
+	\bra{u_1} \hat{\rho} \ket{u_1} =& p\alpha_1\alpha_1^* + (1-p) \beta_1\beta_1^*; \\
+	\bra{u_1} \hat{\rho} \ket{u_2} =& p\alpha_1\alpha_2^* + (1-p) \beta_1\beta_2^*; \\
+	\bra{u_2} \hat{\rho} \ket{u_1} =& p\alpha_2\alpha_1^* + (1-p) \beta_2\beta_1^*; \\
+	\bra{u_2} \hat{\rho} \ket{u_2} =& p\alpha_2\alpha_2^* + (1-p) \beta_2\beta_2^*.
+\end{align*}
+其中：
+\[
+	\alpha_1 = \bra{u_1} \psi_1 \rangle, ~ \alpha_2 = \bra{u_2} \psi_1 \rangle, ~ \beta_1 = \bra{u_1} \psi_2 \rangle, ~ \beta_2 = \bra{u_2} \psi_2 \rangle.
+\]
+则不难注意到：
+\[
+	\vert \alpha_1 \vert^2 + \vert \alpha_2 \vert^2 = 1, ~ \vert \beta_1 \vert^2 + \vert \beta_2 \vert^2 = 1, ~ \vert \alpha_1 \vert^2 + \vert \beta_1 \vert^2 = 1, ~ \vert \alpha_2 \vert^2 + \vert \beta_2 \vert^2 = 1.
+\]
+可以计算：
+\[
+	\bra{u_1} \hat{\rho} \ket{u_1} + \bra{u_2} \hat{\rho} \ket{u_2} = 1.
+\]
+同时，令：
+\begin{align*}
+	x =& \bra{u_1} \hat{\rho} \ket{u_2} + \bra{u_2} \hat{\rho} \ket{u_1} = p(\alpha_1\alpha_2^*+ \alpha_2\alpha_1^*) + (1-p) (\beta_1\beta_2^* + \beta_2\beta_1^*); \\
+	iy =& \bra{u_1} \hat{\rho} \ket{u_2} - \bra{u_2} \hat{\rho} \ket{u_1} = p(\alpha_1\alpha_2^* - \alpha_2\alpha_1^*) + (1-p) (\beta_1\beta_2^* - \beta_2\beta_1^*); \\
+	z =& \bra{u_1} \hat{\rho} \ket{u_1} - \bra{u_2} \hat{\rho} \ket{u_2} = p(\alpha_1\alpha_1^* - \alpha_2\alpha_2^*) + (1-p)(\beta_1\beta_1^* - \beta_2\beta_2^*).
+\end{align*}
+则密度矩阵算符的矩阵表示可以写作：
+\[
+	\rho = \left( \begin{matrix}
+		\frac{1}{2}+\frac{z}{2} & \frac{x}{2}+\frac{iy}{2} \\
+		\frac{x}{2}-\frac{iy}{2} & \frac{1}{2}-\frac{z}{2}
+	\end{matrix} \right) = \frac{\mathbf{I} + \vec{r}\cdot\vec{\sigma}}{2}
+\]
+可以计算：
+\begin{align*}
+	\vert \vec{r} \vert^2 =& \vert x \vert^2 + \vert y \vert^2 + \vert z \vert^2 \\
+	=& p^2 + (1-p)^2 + 2p(1-p) (4\mathbf{Re}(\alpha_1\alpha_2^*\beta_1^*\beta_2) - (1-2\vert\alpha_1\vert^2)^2) \\
+	\leq& p^2 + (1-p)^2 + 2p(1-p) (4\vert \alpha_1 \vert^2 - 4\vert \alpha_1 \vert^4 - (1-2\vert\alpha_1\vert^2)^2) \\
+	=& p^2 + (1-p)^2 + 2p(1-p) - 4p(1-p)(2\vert \alpha_1 \vert^2 - 1)^2 \\
+	=& 1 - 4p(1-p)(2\vert \alpha_1 \vert^2 - 1)^2 \\
+	\leq& 1.
+\end{align*}
+则有：
+\[
+	\vert \vec{r} \vert = r \leq 1.
+\]
+当$r = 1$时，有：$p = 0$或$p = 1$，显然此时有$\hat{\rho}^2 = \hat{\rho}$，体系处于纯态。
+
+当体系处于纯态时，有$\hat{\rho}^2 = \hat{\rho}$，则可以计算：
+\begin{align*}
+	\hat{\rho}^2 =& \frac{1}{4} (\mathbf{I}+\vec{r}\cdot\vec{\sigma})^2 \\
+	=& \frac{1}{4} (\mathbf{I} + 2\vec{r}\cdot\vec{\sigma} + (\vec{r}\cdot\vec{\sigma})^2) \\
+	=& \frac{1}{4} ((1+r^2)\mathbf{I} + 2\vec{r}\cdot\vec{\sigma}) \\
+	=& \hat{\rho}.
+\end{align*}
+则有$\vert\vec{r}\vert = r = 1$。
+
+综上所述，二能级系统的密度算符矩阵可以写作：
+\[
+	\hat{\rho} = \frac{\mathbf{I} + \vec{r} \cdot \vec{\sigma}}{2}
+\]
+当且仅当$r=1$时，体系处于纯态。
+\end{tcolorbox}
+
+\textbf{习题1.24}
+
+证明$\hat{\rho}_1 = \mathbf{Tr}_2(\ket{\psi}_{12}{ }_{12}\bra{\psi})$为密度矩阵算符，并且$\hat{\rho}_1$为纯态的充要条件为$\ket{\psi}_{12}$为直积态。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+可以计算：
+\[
+	\mathbf{Tr}(\hat{\rho}_1) = \mathbf{Tr}_1(\mathbf{Tr}_2 (\ket{\psi}_{12} { }_{12}\bra{\psi})) = \mathbf{Tr}_{12} (\ket{\psi}_{12} { }_{12}\bra{\psi}) = 1.
+\]
+\[
+	\hat{\rho}_1^\dagger = [\mathbf{Tr}_2(\ket{\psi}_{12} { }_{12}\bra{\psi})]^\dagger = \mathbf{Tr}_2(\ket{\psi}_{12} { }_{12}\bra{\psi}) = \hat{\rho}_1
+\]
+对于任意态矢量$\ket{a} = \sum \alpha_m \ket{m}$，可以计算：
+\begin{align*}
+	\bra{a} \hat{\rho}_1 \ket{a} =& \bra{a} \mathbf{Tr}_2(\ket{\psi}_{12} { }_{12}\bra{\psi}) \ket{a} \\
+	=& \mathbf{Tr}_1(\ket{a}\bra{a} \mathbf{Tr}_2(\ket{\psi}_{12} { }_{12}\bra{\psi}) ) \\
+	=& \mathbf{Tr}_{12} (\ket{a}\bra{a}\otimes\mathbf{1}_2) (\ket{\psi}_{12} { }_{12}\bra{\psi}) \\
+	=& { }_{12}\bra{\psi} (\ket{a}\bra{a}\otimes \mathbf{1}_2) \ket{\psi}_{12} \\
+	=& \sum_{m,n}c_{mn}^* { }_1\bra{m}\otimes { }_2\bra{n} (\ket{a}\bra{a}\otimes \mathbf{1}_2) \sum_{m',n'}c_{m'n'} \ket{m'}_1 \otimes \ket{n'}_2 \\
+	=& \sum_{m,m',n} c_{mn}^*c_{m'n} \bra{m} a \rangle \bra{a} m' \rangle \\
+	=& \sum_n \left( \sum_{m} c_{mn}^* \bra{m} a\rangle \right) \left( \sum_{m} c_{mn} \bra{a} m \rangle \right) \\
+	\geq& 0.
+\end{align*}
+若$\ket{\psi}_{12} = \ket{\phi}_1 \otimes \ket{\chi}_2$，则有：
+\[
+	\hat{\rho}_1 = \mathbf{Tr}_2(\ket{\psi}_{12} { }_{12}\bra{\psi}) = { }_2\bra{\chi} \chi \rangle_2 \ket{\phi}_1 { }_1 \bra{\phi} = \ket{\phi}_1 { }_1 \bra{\phi} = \ket{\phi} \bra{\phi}.
+\]
+则有：
+\[
+	\hat{\rho}_1^2 =  \ket{\phi} \bra{\phi} \phi \rangle \bra{\phi} =  \ket{\phi} \bra{\phi} = \hat{\rho}_1.
+\]
+若$\hat{\rho}_1$为纯态，即$\hat{\rho}_1^2 = \hat{\rho}_1$。可以计算：
+\begin{align*}
+	\hat{\rho}_1 =& \mathbf{Tr}_2 (\sum_{m,n} c_{mn} \ket{m}\otimes \ket{n} \sum_{m',n'} c_{m'n'}^* \bra{m'} \bra{n'}) \\
+	=& \sum_{m,n,m',n'} c_{mn} c_{m'n'}^* \ket{m} \bra{m'} \bra{n'} n \rangle \\
+	=& \sum_{m,m',n} c_{mn} c_{m',n}^* \ket{m} \bra{m'} \\
+	\hat{\rho}_1^2 =& \sum_{m_1,m_2,m_3,m_4,n_1,n_2} c_{m_1,n_1}c_{m_2,n_1}^* c_{m_3,n_2} c_{m_4,n_2}^* \ket{m_1} \bra{m_2} m_3 \rangle \bra{m_4} \\
+	=& \sum_{m,m',n} c_{mn} c_{m'n}^* \ket{m} \bra{m'} = \hat{\rho}_1
+\end{align*}
+当且仅当满足$c_{mn} = \alpha_m \beta_n$时上式成立。此时可以计算：
+\begin{align*}
+	\hat{\rho}_1 =& \mathbf{Tr}_2 (\sum_{m,n} \alpha_m\beta_n \ket{m}\otimes \ket{n} \sum_{m',n'} \alpha_{m'}^*\beta_{n'}^* \bra{m'} \bra{n'}) \\
+	=& \sum_{m,n,m',n'} \alpha_m\beta_n \alpha_m^*\beta_n^* \ket{m} \bra{m'} \bra{n'} n \rangle \\
+	=& \sum_{m,m'} \alpha_m \alpha_{m'}^* \ket{m} \bra{m'} \\
+	\hat{\rho}_1^2 =& \sum_{m_1,m_2,m_3,m_4} \alpha_{m_1}\alpha_{m_2}^* \alpha_{m_3} \alpha_{m_4}^* \ket{m_1} \bra{m_2} m_3 \rangle \bra{m_4} \\
+	=& \sum_{m,m'} \alpha_m \alpha_{m'}^* \ket{m} \bra{m'}.
+\end{align*}
+当$c_{mn} = \alpha_m\beta_n$时，则有：
+\[
+	\ket{\psi} = \sum_{mn} \alpha_m \beta_n \ket{m} \otimes \ket{n} = \left( \sum_m \alpha_m \ket{m} \right) \otimes \left( \sum_{n} \beta_n \ket{n} \right).
+\]
+即$\ket{\psi}_{12}$可以写作直积态。
+
+综上所述，$\hat{\rho}_1$为纯态的充要条件为$\ket{\psi}_{12}$为直积态。
+\end{tcolorbox}
+
+\textbf{习题1.25}
+
+证明对于量子态
+\[
+	\ket{B} = \frac{\ket{00}+\ket{11}}{\sqrt{2}}
+\]
+
+可以选择$\vec{n}_1, \vec{n}_2, \vec{n}_3, \vec{n}_4$，使得$\vert \langle \hat{B} \rangle \vert = 2\sqrt{2}$
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+选取四个向量分别为：
+\begin{align*}
+	\vec{n}_1 =& (1/\sqrt{2} \ \ \ 0 \ \ \ 1/\sqrt{2});& & \vec{n}_2 = (1 \ \ \ 0 \ \ \ 0); \\
+	\vec{n}_3 =& (1/\sqrt{2} \ \ \ 0 \ \ \ -1/\sqrt{2});& & \vec{n}_4 = (0 \ \ \ 0 \ \ \ 1).
+\end{align*}
+可以计算：
+\begin{align*}
+	\vec{\sigma}_1 \cdot \vec{n}_1 =& \frac{1}{\sqrt{2}}\sigma_x+\frac{1}{\sqrt{2}}\sigma_z = \left( \begin{matrix}
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+	\end{matrix} \right); \\
+	\vec{\sigma}_2 \cdot (\vec{n}_2+\vec{n}_4) =& \sigma_x+\sigma_z = \left( \begin{matrix}
+		1 & 1 \\
+		1 & -1
+	\end{matrix} \right); \\
+	\vec{\sigma}_1 \cdot \vec{n}_3 =& \frac{1}{\sqrt{2}}\sigma_x-\frac{1}{\sqrt{2}}\sigma_z = \left( \begin{matrix}
+		-\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+	\end{matrix} \right); \\
+	\vec{\sigma}_2 \cdot (\vec{n}_2-\vec{n}_4) =& \sigma_x-\sigma_z = \left( \begin{matrix}
+		1 & 1 \\
+		1 & -1
+	\end{matrix} \right).
+\end{align*}
+则可以计算：
+\[
+	\hat{B} = \left( \begin{matrix}
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+	\end{matrix} \right) 
+	+ 
+	\left( \begin{matrix}
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		-\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		-\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+	\end{matrix} \right) 
+	= 
+	\left( \begin{matrix}
+		\sqrt{2} & 0 & 0 & \sqrt{2} \\
+		0 & -\sqrt{2} & \sqrt{2} & 0 \\
+		0 & \sqrt{2} & -\sqrt{2} & 0 \\
+		\sqrt{2} & 0 & 0 & \sqrt{2}
+	\end{matrix} \right).
+\]
+则可以计算：
+\[
+	\bra{B} \hat{B} \ket{B} = \left( \begin{matrix}
+		\frac{1}{\sqrt{2}} & 0 & 0 & \frac{1}{\sqrt{2}}
+	\end{matrix} \right)
+	\left( \begin{matrix}
+		\sqrt{2} & 0 & 0 & \sqrt{2} \\
+		0 & -\sqrt{2} & \sqrt{2} & 0 \\
+		0 & \sqrt{2} & -\sqrt{2} & 0 \\
+		\sqrt{2} & 0 & 0 & \sqrt{2}
+	\end{matrix} \right)
+	\left( \begin{matrix}
+		\frac{1}{\sqrt{2}} \\
+		0 \\
+		0 \\
+		\frac{1}{\sqrt{2}}
+	\end{matrix} \right) = 2\sqrt{2}.
+\]
+\end{tcolorbox}
+
+\textbf{习题1.26}
+
+证明
+\[
+	\hat{\rho} = \frac{e^{-\beta \hat{H}}}{\mathbf{Tr}(e^{-\beta \hat{H}})}
+\]
+
+为密度算符。其中$\beta = k_B T$，$k_B$为玻尔兹曼常数，$T$为温度。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+因为$\hat{H}^\dagger = \hat{H}$，则有：
+\[
+	\hat{\rho}^\dagger = \frac{1}{\mathbf{Tr}(e^{-\beta \hat{H}})}\left( \sum_{n=0}^\infty \frac{(-\beta\hat{H})^n}{n!} \right)^\dagger = \frac{1}{\mathbf{Tr}(e^{-\beta \hat{H}})}\left( \sum_{n=0}^\infty \frac{(-\beta\hat{H})^n}{n!} \right) = \frac{e^{-\beta \hat{H}}}{\mathbf{Tr}(e^{-\beta \hat{H}})} = \hat{\rho}.
+\]
+
+可以计算：
+\[
+	\mathbf{Tr}(\hat{\rho}) = \frac{\mathbf{Tr}(e^{-\beta \hat{H}})}{\mathbf{Tr}(e^{-\beta \hat{H}})} = 1.
+\]
+
+由于指数函数的正定性，即对于任意量子态$\ket{\psi}$，都有：
+\[
+	\bra{\psi} e^{-\beta \hat{H}} \ket{\psi} > 0.
+\]
+
+则有$\hat{\rho} \geq 0$.
+
+综上所述，$\hat{\rho} = \frac{e^{-\beta \hat{H}}}{\mathbf{Tr}(e^{-\beta \hat{H}})}$为密度算符。
+\end{tcolorbox}
+
+\textbf{习题1.27}
+
+证明下列关系式：
+\[
+	e^{\hat{A}} \hat{B} e^{-\hat{A}} = \hat{B} + \frac{1}{1!}[\hat{A}, \hat{B}] + \frac{1}{2!}[\hat{A},[\hat{A},\hat{B}]] + \cdots
+\]
+
+如果算符$\hat{A}$存在对角化
+\[
+	\hat{A} = \sum_a \ket{a} a \bra{a}
+\]
+
+其中$\bra{a} a' \rangle = \delta_{a,a'}$，那么我们定义对任意函数$f(x)$
+\[
+	f(\hat{A}) = \sum_a \ket{a}f(a)\bra{a}
+\]
+
+可以证明当函数$f(x)$可泰勒展开时，上述定义与定义(1.210)一致。
+
+对于在区域$D$上解析的函数$f(z)$，如果算符$\hat{A}$的本征值在$D$内，那么算符函数
+\[
+	f(\hat{A}) = \frac{1}{2\pi i} \int_{\varGamma} dz f(z) \frac{1}{z-A}
+\]
+其中$\varGamma$为区域$D$中包含所有$\hat{A}$的本征值的任意正向闭合路径。可以证明该定义与定义(1.225)的一致性。
+\[
+	(\hat{A}\hat{B})^{-1} = \hat{B}^{-1} \hat{A}^{-1}, \ \ (\hat{A}+\hat{B})^{-1} = \hat{A}^{-1} - \hat{A}^{-1}\hat{B}(\hat{A}+\hat{B})^{-1}
+\]
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+对于$e^{\hat{A}}$进行Taylor展开有：
+\[
+	e^{\hat{A}} = \sum_{n=0}^\infty \frac{1}{n!} \hat{A}^n = \left( 1 + \hat{A} + \frac{1}{2!}\hat{A}^2 + \cdots \right).
+\]
+则展开$e^{\hat{A}} \hat{B} e^{-\hat{A}}$，可得：
+\[
+	e^{\hat{A}} \hat{B} e^{-\hat{A}} = \left( 1 + \hat{A} + \frac{1}{2!}\hat{A}^2 + \cdots \right) \hat{B} \left( 1 - \hat{A} + \frac{1}{2!}\hat{A}^2 + \cdots \right).
+\]
+其中，可以计算$\hat{A}$的零阶项为$\hat{B}$，$\hat{A}$的一阶项为$\hat{A}\hat{B} - \hat{B}\hat{A} = [\hat{A}, \hat{B}]$，$\hat{A}$的二阶项为$\frac{1}{2!}\hat{A}^2\hat{B}-\hat{A}\hat{B}\hat{A} + \frac{1}{2!}\hat{B}\hat{A}^2 = \frac{1}{2!}[\hat{A}, [\hat{A},\hat{B}]]$，以此类推，可得：
+\[
+	e^{\hat{A}} \hat{B} e^{-\hat{A}} = \hat{B} + \frac{1}{1!}[\hat{A}, \hat{B}] + \frac{1}{2!}[\hat{A},[\hat{A},\hat{B}]] + \cdots
+\]
+可以计算：
+\[
+	\hat{A}^n = \sum_{a_1,a_2,...,a_n} \prod_{i=1}^n a_i \ket{a_1} \bra{a_1} a_2 \rangle \bra{a_2} \cdots \ket{a_n} \bra{a_n} = \sum_a a^n \ket{a} \bra{a}.
+\]
+则有：
+\begin{align*}
+	f(\hat{A}) =& \sum_{n=0}^\infty \frac{1}{n!} f^{(n)}(0) \hat{A}^n = \sum_{n=0}^\infty \frac{1}{n!} f^{(n)}(0) \sum_{a} a^n \ket{a} \bra{a} \\
+	=& \sum_a \ket{a} \sum_{n=0}^\infty \frac{1}{n!} f^{(n)}(0) a^n \bra{a} = \sum_a \ket{a} f(a) \bra{a}.
+\end{align*}
+令$g(\hat{A}) = \frac{1}{z-\hat{A}}$，则有：
+\[
+	g(\hat{A}) = \sum_a \ket{a} g(a) \bra{a} = \sum_a \ket{a} \frac{1}{z-a} \bra{a}.
+\]
+从而可以计算算符函数：
+\[
+	f(\hat{A}) = \frac{1}{2\pi i} \int_\varGamma dz f(z) g(\hat{A}) = \frac{1}{2\pi i} \sum_a \ket{a} \int_\varGamma dz f(z) \frac{1}{z-a} \bra{a} = \sum_a \ket{a} f(a) \bra{a}.
+\]
+可以计算：
+\[
+	(\hat{A}\hat{B})^{-1}(\hat{A}\hat{B}) = \hat{B}^{-1}\hat{A}^{-1} \hat{A}\hat{B} = \hat{B}^{-1} \hat{B} = \mathbf{1}.
+\]
+\[
+	(\hat{A}+\hat{B})^{-1}(\hat{A}+\hat{B}) = (\hat{A}^{-1}-\hat{A}^{-1} \hat{B} (\hat{A}+\hat{B})^{-1}) (\hat{A}+\hat{B}) = \mathbf{1} + \hat{A}^{-1}\hat{B} - \hat{A}^{-1}\hat{B} = \mathbf{1}.
+\]
+其中利用了$(\hat{A}+\hat{B})^{-1}(\hat{A}+\hat{B}) = \mathbf{1}$。
+
+综上所述，有：
+\[
+	(\hat{A}\hat{B})^{-1} = \hat{B}^{-1} \hat{A}^{-1}, \ \ (\hat{A}+\hat{B})^{-1} = \hat{A}^{-1} - \hat{A}^{-1}\hat{B}(\hat{A}+\hat{B})^{-1}.
+\]
+\end{tcolorbox}
+\end{document}
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\end{tcolorbox}

@@ -1,0 +1,205 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第七次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{习题4.4}
+
+求最低级Born近似(n=0)下微分散射截面的表达式。
+
+\begin{proof}
+
+在最低级Born近似下，$n=0$，即有：
+\[
+	T \ket{k} = V \sum_{n=0}^\infty \left( \frac{1}{E_k-H_0+i\varepsilon} V \right)^n \ket{k} = V \ket{k}.
+\]
+
+则有：
+\[
+	f(k\vec{e}_r, k\vec{e}_z) = -(2\pi)^2 M \bra{k\vec{e}_r} T \ket{k\vec{e}_z} = -(2\pi)^2 M \bra{k\vec{e}_r} V \ket{k\vec{e}_z}.
+\]
+
+从而微分散射截面可以写为：
+\[
+	\frac{d\sigma}{d\Omega} = \vert f(k\vec{e}_r, k\vec{e}_z) \vert^2 = M^2(2\pi)^4 \vert \bra{k\vec{e}_r} V \ket{k\vec{e}_z} \vert^2.
+\]
+
+\end{proof}
+
+\medskip
+
+\textbf{习题4.5}
+
+验证方程
+\[
+	\bra{E_p \vec{e}_p} Elm \rangle = \delta(E_p - E) \bra{\vec{e}_p} lm \rangle.
+\]
+
+等价于等式
+\[
+	e^{ikz} = \sum_l i^l(2l+1) j_l(kr) P_l(\cos\theta).
+\]
+
+\begin{proof}
+注意到：
+\[
+	\ket{E_p \vec{e}_p} = \sqrt{Mp} \ket{\vec{p}}.
+\]
+
+可以计算：
+\begin{align*}
+	\bra{E_p \vec{e}_p} Elm \rangle =& \sqrt{Mp} \bra{\vec{p}} Elm \rangle \\
+	=& \sqrt{Mp} \int d\vec{r} \bra{\vec{p}} \vec{r} \rangle \bra{\vec{r}} Elm \rangle \\
+	=& \frac{\sqrt{Mp}}{(2\pi)^{3/2}} \int d\vec{r} e^{-i\vec{p} \cdot \vec{r}} \bra{\theta\phi} lm \rangle R_{kl}(r).
+\end{align*}
+
+注意到，可以计算：
+\begin{align*}
+	&\frac{\sqrt{Mp}}{(2\pi)^{3/2}} \int r^2dr d\Omega_r \left( \sum_{l'} (-i)^{l'} (2l'+1) j_{l'}(pr) P_{l'}(\cos\theta) \right) i^l \sqrt{\frac{2Mk}{\pi}} j_l(kr) \bra{\vec{e}_r} lm \rangle \\
+	=& \frac{\sqrt{Mp}}{(2\pi)^{3/2}} \int r^2dr d\Omega_r \sum_{l'} (-i)^{l'} j_{l'}(pr) 4\pi \sum_{m'} \bra{\vec{e}_p} l'm' \rangle \bra{l'm'} \vec{e}_r \rangle i^l \sqrt{\frac{2Mk}{\pi}} j_l(kr) \bra{\vec{e}_r} lm \rangle.
+\end{align*}
+
+其中，利用完备性关系与正交性关系
+\[
+	\int d\Omega_r \ket{\vec{e}_r} \bra{\vec{e}_r} = 1; \ \ \ \bra{l'm'} lm \rangle = \delta_{ll'} \delta_{mm'}.
+\]
+
+上式可以简化为：
+\begin{align*}
+	&\frac{\sqrt{Mp}}{(2\pi)^{3/2}} \int r^2dr d\Omega_r \sum_{l'} (-i)^{l'} j_{l'}(pr) 4\pi \sum_{m'} \bra{\vec{e}_p} l'm' \rangle \bra{l'm'} \vec{e}_r \rangle i^l \sqrt{\frac{2Mk}{\pi}} j_l(kr) \bra{\vec{e}_r} lm \rangle \\
+	=& \frac{\sqrt{Mp}}{(2\pi)^{3/2}} \sqrt{\frac{2Mk}{\pi}} 4\pi \int dr r^2 j_l(pr) k_l(kr) \bra{\vec{e}_p} lm \rangle \\
+	=& \frac{2M\sqrt{pk}}{\pi} \frac{\pi}{2k^2}\delta(p-k) \bra{\vec{e}_p} lm \rangle \\
+	=& \frac{M}{k} \delta(p-k) \bra{\vec{e}_p} lm \rangle \\
+	=& \delta(E_p - E) \bra{\vec{e}_p} lm \rangle.
+\end{align*}
+
+其中$E_p = \frac{p^2}{2M}, E = \frac{k^2}{2M}$，取自然单位制$\hbar = 1$，则有：
+\[
+	\delta(E_p - E) = \delta(\frac{1}{2M}(p^2-k^2)) = \frac{M}{p} \delta(p-k).
+\]
+
+若有：
+\[
+	\bra{E_p \vec{e}_p} Elm \rangle = \delta(E_p-E) \bra{\vec{e}_p} lm \rangle.
+\]
+
+则不难发现，有：
+\[
+	e^{-i\vec{p}\cdot\vec{r}} = \sum_l (-i)^l (2l+1) j_l(pr) P_l(\cos\theta).
+\]
+
+两侧取共轭，得：
+\[
+	e^{i\vec{p} \cdot \vec{r}} = \sum_l i^l (2l+1) j_l(pr) P_l(\cos\theta).
+\]
+
+其中$\theta = \langle\vec{p}, \vec{r}\rangle$，即$\vec{p}$与$\vec{r}$的夹角。
+\end{proof}
+
+\medskip
+
+\textbf{习题4.6}
+
+在低能散射中通常只考虑较低的几个分波，如$s$波和$p$波等。试分析其中的道理，给出只需要考虑$s$波的条件。
+
+\begin{proof}
+对于自由球面波$\varphi_{k,l,m}^{(0)}(\vec{r})$，围绕$(\theta_0, \phi_0)$方向取无限小立体角$d\Omega_0$，在$r$到$r+dr$间隔内找到粒子的概率正比于
+\[
+	r^2 j_l^2(kr) \vert Y_l^m(\theta_0, \phi_0) \vert^2 drd\Omega_0.
+\]
+
+对于趋向零的$\rho$而言，有：
+\[
+	j_l(\rho) \sim \frac{\rho^l}{(2l+1)!!}.
+\]
+
+则上式中概率在原点附近的行为和$r^{2l+2}$的行为相同，因而$l$越大，概率增加越缓慢。$\rho^2 j_l^2(\rho)$只要
+\[
+	\rho < \sqrt{l(l+1)},
+\]
+
+函数就将保持在很小的数值。因此，如果
+\[
+	r < \frac{1}{k}\sqrt{l(l+1)}
+\]
+
+我们可以认为概率表达式实际上等于零，即处在$\ket{\varphi_{k,l,m}^{(0)}}$态的一个粒子对于以$O$为圆心，以
+\[
+	b_l(k) = \frac{1}{k}\sqrt{l(l+1)}
+\]
+
+为半径的球内发生的过程毫无反应。
+
+对于任意中心势$V(r)$，分波$\varphi_{k,l,m}(\vec{r})$都具有如下形式：
+\[
+	\varphi_{k,l,m}(\vec{r}) = R_{k,l}(r) Y_l^m (\theta, \phi) = \frac{1}{r} u_{k,l}(r) Y_l^m(\theta, \phi).
+\]
+
+其中，$u_{k,l}$满足：
+\[
+	\left[ -\frac{\hbar^2}{2\mu}\frac{d^2}{dr^2} + \frac{l(l+1)\hbar^2}{2\mu r^2} + V(r) \right]u_{k,l}(r) = \frac{\hbar^2k^2}{2\mu} u_{k,l}(r).
+\]
+
+且在原点处满足：
+\[
+	u_{k,l}(0) = 0.
+\]
+
+当$r\to \infty$时，有：
+\[
+	u_{k,l} \sim C \sin\left( kr - l\frac{\pi}{2} + \delta_l \right).
+\]
+
+则分波$\phi_{k,l,m}(\vec{r})$可以写作：
+\[
+	\varphi_{k,l,m}(\vec{r}) \sim -CY_l^m(\theta, \phi) \frac{e^{-ikr} e^{i\left( l\frac{\pi}{2}-\delta_l \right)} - e^{ikr} e^{-i\left( l\frac{\pi}{2}-\delta_l \right)}}{2ir}
+\]
+
+即一个向内波和一个向外波的叠加。可以重新定义一个分波$\bar{\varphi}_{k,l,m}(\vec{r}) = \varphi_{k,l,m}(\vec{r}) e^{i\delta_l}$，并选择常数$C$，使得：
+\[
+	\bar{\varphi}_{k,l,m}(\vec{r}) \sim -Y_l^m(\theta, \varphi) \frac{e^{-ikr} e^{il\pi/2} - e^{ikr} e^{-il\pi/2} e^{2i\delta_l}}{2ikr}.
+\]
+
+即相移$2\delta_l$的相位因子$e^{2i\delta_l}$纳入了势场对角动量量子数为$l$的粒子的全部影响。则考虑有限射程为$r_0$的势场$V(r)$，即
+\[
+	V(r) = 0, \ \ \ r>r_0.
+\]
+
+则类似自由球面波，对于满足$b_l(k) >> r$的那些波，实际上感受不到势场的作用，因为对应的内向波在到达势场作用范围前就已经反向传播了。于是，对能量的每一个值都存在着一个角动量临界量子数$l_M$，近似满足：
+\[
+	\sqrt{l_M(l_M + 1)} \sim kr_0.
+\]
+
+当$l\leq l_M$时，相移$\delta_l$才有显著的影响。即当入射能量较低，势场射程较短时，$l_M$较小，即此时只需考虑较低的几个分波，如$s$波和$p$波等。当只需考虑$s$波时，有：
+\[
+	0 \leq l_M < 1.
+\]
+
+即近似的有：
+\[
+	kr_0 < \sqrt{2}.
+\]
+\end{proof}
+
+
+\end{document}

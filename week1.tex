@@ -1,0 +1,228 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第一周作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{习题1.1} 
+
+证明下述内积的定义满足内积定义的基本要求。其中注意到现在是定义在复数域上的矢量空间，关于矢量空间的定义需要适当修改：$\langle \phi \vert \psi \rangle = \langle \psi \vert \phi \rangle^*$
+
+内积定义为：
+\[
+	\langle \phi \vert \psi \rangle \equiv (\phi, \psi) = \int d\vec{r} \phi^*(\vec{r}) \psi(\vec{r}) 
+\]
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\textbf{证明：}
+\begin{align*}
+	& &\langle \phi \vert \psi \rangle &= \int d\vec{r} \phi^*(\vec{r}) \psi(\vec{r}) = \left( \int d\vec{r} \psi^*(\vec{r})\phi(\vec{r}) \right)^* = \langle \psi \vert \phi \rangle^*; \\
+	& &\langle \phi \vert \psi_1 + \psi_2 \rangle &= \int d\vec{r} \phi^*(\vec{r}) (\psi_1(\vec{r}) + \psi_2(\vec{r})) = \int d\vec{r} \phi^*(\vec{r}) \psi_1(\vec{r}) + \int d\vec{r} \phi^*(\vec{r}) \psi_2(\vec{r}) \\
+	& & &= \langle \phi \vert \psi_1 \rangle + \langle \phi \vert \psi_2 \rangle; \\
+	& &\langle \phi \vert \lambda \psi \rangle &= \int d\vec{r} \phi^*(\vec{r}) \lambda \psi(\vec{r}) = \lambda \int d\vec{r} \phi^*(\vec{r}) \psi(\vec{r}) = \lambda \langle \phi \vert \psi \rangle; \\
+	& &\langle \phi \vert \phi \rangle &= \int d\vec{r} \phi^*(\vec{r}) \phi(\vec{r}) = \int d\vec{r} \vert \phi(\vec{r}) \vert^2 \geq 0; \\
+	& &\langle \phi \vert \phi \rangle &= 0 \text{当且仅当} \phi(\vec{r}) = 0.
+\end{align*}
+综上所述，上述内积定义满足内积定义的基本要求。
+\end{tcolorbox}
+
+\textbf{习题1.2}
+
+证明Schwartz不等式：对于任意量子态$\ket{\phi}$和$\ket{\psi}$，
+\[
+	\langle \phi \vert \psi \rangle \langle \psi \vert \phi \rangle \leq \langle \phi \vert \phi \rangle \langle \psi \vert \psi \rangle
+\]
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+由于任意量子态模平方大于等于0，则有:
+\[
+	(\bra{\phi} + \lambda^*\bra{\psi})(\ket{\phi} + \lambda\ket{\psi}) \geq 0.
+\]
+其中$\lambda$可以为任意复数。不妨另
+\[
+	\lambda = -\frac{\bra{\psi} \phi \rangle}{\bra{\psi} \psi \rangle}.
+\]
+则上述恒成立不等式为：
+\[
+	\bra{\phi} \phi \rangle - \frac{\bra{\psi} \phi \rangle \bra{\phi} \psi \rangle}{\bra{\psi} \psi \rangle} - \frac{\bra{\phi} \psi \rangle \bra{\psi} \phi \rangle}{\bra{\psi} \psi \rangle} + \frac{\bra{\phi} \psi \rangle \bra{\psi} \phi \rangle}{\bra{\psi} \psi \rangle} \geq 0.
+\]
+则有：
+\[
+	\bra{\phi} \psi \rangle \bra{\psi} \phi \rangle \leq \bra{\phi} \phi \rangle \bra{\psi} \psi \rangle.
+\]
+
+\end{tcolorbox}
+
+\textbf{习题1.3}
+
+对于下面的三个量子态
+\begin{align*}
+	\ket{\phi_1} =& \ket{1} + \ket{2} \\
+	\ket{\phi_2} =& \ket{2} + \ket{3} \\
+	\ket{\phi_3} =& \ket{1} + \ket{3}
+\end{align*}
+
+其中$\langle i \vert j \rangle = \delta_{ij} ~~ (i,j \in 1,2,3)$。
+
+问题1:判断$\ket{\phi_1},\ket{\phi_2},\ket{\phi_3}$是否线型独立；
+
+问题2:用施密特正交化的方法构造三个正交归一基矢。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\begin{enumerate}[1]
+\item 选取$\ket{1},\ket{2},\ket{3}$作为基矢，三个量子态在该基矢表象下的列向量构成一个矩阵为：
+\[
+A = 
+\begin{pmatrix}
+	1 & 0 & 1 \\
+	1 & 1 & 0 \\
+	0 & 1 & 1
+\end{pmatrix}
+\]
+可以计算矩阵A的行列式为$det(A) = 2 \neq 0$，即三个列向量线性无关，即$\ket{\phi_1},\ket{\phi_2},\ket{\phi_3}$线型独立。
+
+\item 
+\begin{align*}
+	& &\ket{\psi_1} =& \frac{\ket{\phi_1}}{\sqrt{\langle \phi_1 \vert \phi_1 \rangle}} = \frac{1}{\sqrt{2}} \ket{1} + \frac{1}{\sqrt{2}} \ket{2}; \\
+	& &\ket{\phi_2'} =& \ket{\phi_2} - \ket{\phi_1} \langle \phi_1 \vert \phi_2 \rangle = -\frac{1}{2} \ket{1} + \frac{1}{2} \ket{2} + \ket{3}, \\
+	& &\ket{\psi_2} =& \frac{\ket{\phi_2'}}{\sqrt{\langle \phi_2' \vert \phi_2' \rangle}} = -\frac{1}{\sqrt{6}} \ket{1} + \frac{1}{\sqrt{6}} \ket{2} + \frac{2}{\sqrt{6}} \ket{3}; \\
+	& &\ket{\phi_3'} =& \ket{\phi_3} - \ket{\psi_1} \bra{\psi_1} \phi_3 \rangle - \ket{\psi_2}\bra{\psi_2} \phi_3 \rangle = \frac{2}{3}\ket{1} - \frac{2}{3}\ket{2} + \frac{2}{3}\ket{3}, \\
+	& &\ket{\psi_3} =& \frac{\ket{\phi_3'}}{\sqrt{\bra{\phi_3'} \phi_3' \rangle}} = \frac{1}{\sqrt{3}}\ket{1} - \frac{1}{\sqrt{3}}\ket{2} + \frac{1}{\sqrt{3}}\ket{3}.
+\end{align*}
+即三个正交归一基矢分别为：
+\begin{align*}
+	\ket{\psi_1} =& \frac{1}{\sqrt{2}} \ket{1} + \frac{1}{\sqrt{2}} \ket{2}; \\
+	\ket{\psi_2} =& -\frac{1}{\sqrt{6}} \ket{1} + \frac{1}{\sqrt{6}} \ket{2} + \frac{2}{\sqrt{6}} \ket{3}; \\
+	\ket{\psi_3} =& \frac{1}{\sqrt{3}}\ket{1} - \frac{1}{\sqrt{3}}\ket{2} + \frac{1}{\sqrt{3}}\ket{3}.
+\end{align*}
+
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{习题1.4}
+
+证明厄米算符不同本征值对应的本征态正交。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+考虑厄米算符$\hat{A}$的本征值方程：
+\[
+	\hat{A} \ket{\phi_1} = a_1 \ket{\phi_1}; ~~ \hat{A} \ket{\phi_2} = a_2 \ket{\phi_2}.
+\]
+其中$a_1\neq a_2$，且$a_1,a_2$为实数。
+
+则有：
+\[
+	\bra{\phi_2} \hat{A} \ket{\phi_1} = a_1 \bra{\phi_2} \phi_1 \rangle = a_2 \bra{\phi_2} \phi_1 \rangle.
+\]
+即
+\[
+	(a_1 - a_2) \bra{\phi_2} \phi_1 \rangle = 0.
+\]
+由于$a_1 \neq a_2$，则有$\bra{\phi_2} \phi_1 \rangle = 0$，即厄米算符不同本征值对应的本征态正交。
+\end{tcolorbox}
+
+\textbf{习题1.5}
+
+证明如果$P$和$Q$是投影算符，且$PQ=0$，那么$P+Q$也是投影算符。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+因为$P$和$Q$，是投影算符，则有:
+
+\[
+	P^\dagger = P, P^2 = P; ~~ Q_\dagger = Q, Q^2 = Q.
+\]
+
+则有：
+\[
+	(P+Q)^\dagger = P^\dagger + Q^\dagger = P+Q; ~~ (P+Q)^2 = P^2 + Q^2 + PQ + QP = P + Q.
+\]
+{\color{blue}{其中应有$PQ = QP = 0$。}}
+\end{tcolorbox}
+
+\textbf{习题1.6}
+
+证明：$p_i \geq 0$并且$\sum_i p_i = 1$。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\[
+	p_i = \bra{\psi}\hat{P}_i\ket{\psi} = \bra{\psi} a_i \rangle \bra{a_i} \psi \rangle = \vert \langle a_i \ket{\psi} \rangle \vert^2 \geq 0,
+\]
+
+\[
+	\sum_i p_i = \bra{\psi} \sum_i \hat{P}_i \ket{\psi} = \bra{\psi} \psi \rangle = 1.
+\]
+\end{tcolorbox}
+
+\textbf{习题1.7}
+
+证明：如果两个量子态相差一个整体相位，即$\ket{\psi} = e^{i\theta}\ket{\phi}$，那么当系统分别处于这两个量子态时，任意可观测量都给出完全一样的测量结果。
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+考虑任意可观测量对应的厄米算符$\hat{A}$，其测量结果为：
+\[
+	\bra{\psi} \hat{A} \ket{\psi} = \bra{\phi} e^{-i\theta} \hat{A} e^{i\theta} \ket{\phi} = \bra{\phi} \hat{A} \ket{\phi}.
+\]
+即当两个量子态相差一个整体相位时，任意可观测量都给出完全一样的测量结果。
+\end{tcolorbox}
+
+\textbf{习题1.8}
+
+证明方程：
+\[
+	e^{ix'\hat{p}/\hbar} \hat{x} e^{-ix'\hat{p}/\hbar} = \hat{x} + x'.
+\]
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+为了方便计算，令$\hat{A} = x'\hat{p}/\hbar$。则有：
+\begin{align*}
+	&e^{i\hat{A}} = 1 + i\hat{A} + \frac{1}{2!}(i\hat{A})^2 + \cdots, \\
+	&e^{-i\hat{A}} = 1 - i\hat{A} + \frac{1}{2!}(-i\hat{A})^2 + \cdots, \\
+\end{align*}
+则有
+\begin{align*}
+	e^{i\hat{A}} \hat{x} e^{-i\hat{A}} =& \left( 1+i\hat{A}+\frac{1}{2!}(i\hat{A})^2 + \cdots \right) \hat{x} \left( 1-i\hat{A}+\frac{1}{2!}(-i\hat{A})^2 + \cdots \right) \\
+	=& \left( \hat{x}+i\hat{A}\hat{x} + \frac{1}{2!}(i\hat{A})^2\hat{x} + \cdots \right)\left( 1 - i\hat{A} + \frac{1}{2!}(-i\hat{A})^2 + \cdots \right) \\
+	=& \hat{x} - i[\hat{x}, \hat{A}] - \frac{1}{2!}[\hat{x}, \hat{A}^2] + \cdots
+\end{align*}
+带入$\hat{A} = x'\hat{p}/\hbar$，可以得到
+\[
+	[\hat{x}, \hat{A}^n] = \left\{
+	\begin{aligned}
+		&ix', & n=1; \\
+		&0, & n \geq 2.
+	\end{aligned}\right.
+\]
+则有：
+\[
+	e^{ix'\hat{p}/\hbar} \hat{x} e^{-ix'\hat{p}/\hbar} = \hat{x} + x'
+\]
+\end{tcolorbox}
+\end{document}

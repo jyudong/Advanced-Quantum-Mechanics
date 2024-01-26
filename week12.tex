@@ -1,0 +1,124 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第十二次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[1.]
+
+\item Prove that the d'Alembert operator $\square = \frac{1}{c^2}\frac{\partial^2}{\partial t^2} - \nabla^2$ is invariant under the Lorentz transform.
+
+\begin{proof}
+d'Alembert可以写作：
+\[
+	\square = \frac{1}{c^2}\frac{\partial^2}{\partial t^2} - \nabla^2 = \partial_\mu \partial^\mu = g_{\mu\nu} \partial^\mu \partial^\nu.
+\]
+
+经过洛伦兹变换后，有：
+\[
+	\square' = L_\lambda^\mu g_{\mu\nu} L_\rho^\nu L_\mu^\lambda \partial^\mu L_\nu^\rho \partial^\nu = g_{\lambda\rho} \partial^\lambda \partial^\rho = \partial_\lambda \partial^\lambda = \square.
+\]
+
+即d'Alembert算符保持Lorentz不变。
+
+\end{proof}
+
+\medskip
+
+\item Starting from the Dirac equation, verify the equation is consistent with KG equation. We can get KG by multiplying the Dirac equation 
+\[
+	\frac{1}{c} \frac{\partial \psi}{\partial t} + \sum_{k=1}^3 \alpha^k \frac{\partial \psi}{\partial x_k} + i\frac{mc}{\hbar}\beta\psi = 0.
+\]
+
+by the operator
+\[
+	\frac{1}{c}\frac{\partial }{\partial t} - \sum_{l=1}^3 \alpha^l \frac{\partial }{\partial x_l} - i\frac{mc}{\hbar}\beta.
+\]
+
+\begin{proof}
+可以计算：
+\begin{align*}
+	&\left( \frac{1}{c}\frac{\partial }{\partial t} - \sum_{l=1}^3 \alpha^l \frac{\partial }{\partial x_l} - i\frac{mc}{\hbar}\beta \right) \left( \frac{1}{c}\frac{\partial }{\partial t} + \sum_{k=1}^3 \alpha^k \frac{\partial }{\partial x_k} + i\frac{mc}{\hbar}\beta \right) \\
+	=& \frac{1}{c^2} \frac{\partial^2}{\partial t^2} - \left( \sum_{k=1}^3 \alpha^k \frac{\partial }{\partial x_k} + i\frac{mc}{\hbar}\beta \right)^2 \\
+	&+ \frac{1}{c}\frac{\partial}{\partial t} \left( \sum_{k=1}^3 \alpha^k \frac{\partial }{\partial x_k} + i\frac{mc}{\hbar}\beta \right) - \left( \sum_{l=1}^3 \alpha^l \frac{\partial }{\partial x_l} + i\frac{mc}{\hbar}\beta \right) \frac{1}{c} \frac{\partial}{\partial t}.
+\end{align*}
+
+其中，由于
+\[
+	\left[\frac{\partial}{\partial t}, \sum_{k=1}^3 \alpha^k \frac{\partial }{\partial x_k} + i\frac{mc}{\hbar}\beta \right] = 0.
+\]
+
+后两项和等于0。
+
+利用
+\[
+	\{\alpha_i, \alpha_j\} = 2\delta_{ij}, \ \ \{\alpha_i, \beta\} = 0, \ \ \beta^2 = \mathbf{I}.
+\]
+
+可以进一步计算得到：
+\begin{align*}
+	&\left( \frac{1}{c}\frac{\partial }{\partial t} - \sum_{l=1}^3 \alpha^l \frac{\partial }{\partial x_l} - i\frac{mc}{\hbar}\beta \right) \left( \frac{1}{c}\frac{\partial }{\partial t} + \sum_{k=1}^3 \alpha^k \frac{\partial }{\partial x_k} + i\frac{mc}{\hbar}\beta \right) \\
+	=& \frac{1}{c^2} \frac{\partial^2}{\partial t^2} - \left( \sum_{k=1}^3 \alpha^k \frac{\partial }{\partial x_k} + i\frac{mc}{\hbar}\beta \right)^2 \\
+	=& \frac{1}{c^2} \frac{\partial^2}{\partial t^2} - \nabla^2 + \frac{m^2c^2}{\hbar^2}.
+\end{align*}
+
+即有：
+\[
+	\left( \frac{1}{c^2} \frac{\partial^2}{\partial t^2} - \nabla^2 + \frac{m^2c^2}{\hbar^2} \right) \psi = 0.
+\]
+
+即得到了Klein-Gordon方程。
+
+\end{proof}
+
+\medskip
+
+\item Prove $[H, \boldsymbol{\varSigma} \cdot \boldsymbol{p}] = 0$.
+
+\begin{proof}
+哈密顿量为：
+\[
+	H = -i\hbar c \boldsymbol{\alpha \cdot \nabla} + mc^2\beta.
+\]
+
+则可以计算：
+\[
+	[H, \boldsymbol{\varSigma \cdot p}] = -i\hbar c [\boldsymbol{\alpha \cdot \nabla}, \boldsymbol{\varSigma \cdot p}] = -i\hbar c \left( \begin{matrix}
+		0 & [\boldsymbol{\sigma \cdot \nabla}, \boldsymbol{\sigma \cdot p}] \\
+		[\boldsymbol{\sigma \cdot \nabla}, \boldsymbol{\sigma \cdot p}] & 0
+	\end{matrix} \right)
+\]
+\end{proof}
+
+显然有：
+\[
+	[\boldsymbol{\sigma \cdot \nabla}, \boldsymbol{\sigma \cdot p}] = -\frac{1}{i\hbar} [\boldsymbol{\sigma \cdot p}, \boldsymbol{\sigma \cdot p}] = 0.
+\]
+
+则有：
+\[
+	[H, \boldsymbol{\varSigma \cdot p}] = 0.
+\]
+
+\end{enumerate}
+
+\end{document}

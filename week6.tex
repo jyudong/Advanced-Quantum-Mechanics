@@ -1,0 +1,346 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{multirow}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+%\usepackage{xeCJK}
+%\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{Homework of AQM}
+\author{Jianyu Dong ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+%\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+%\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\begin{enumerate}[1.]
+
+\item Calculate all the C-G coefficients for the case with $j_1=1$ and $j_2=1/2$.
+
+\begin{proof}
+	Utilizing the properties of the C-G coefficients, most of the coefficients are 0. For the case with $j_1 = 1$ and $j_2 = 1/2$, we could make the list as below.
+	\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|cc|c|cc|cc|c|}
+	\hline
+	\multicolumn{2}{|c|}{\multirow{2}{*}{ }} &\ \ $\frac{3}{2}$ & $\ \ \frac{3}{2}$ &\ \ $\frac{1}{2}$ &\ \ $\frac{3}{2}$ &\ \ $\frac{1}{2}$ &\ \ $\frac{3}{2}$ \\ %\cline{2-3}
+	 & & $+\frac{3}{2}$ & $+\frac{1}{2}$ & $+\frac{1}{2}$ & $-\frac{1}{2}$ & $-\frac{1}{2}$ & $-\frac{3}{2}$ \\
+	\hline
+	$+1$ & $+\frac{1}{2}$ & & $0$ & $0$ & $0$ & $0$ & $0$ \\
+	\hline
+	$+1$ & $-\frac{1}{2}$ & $0$ & & & $0$ & $0$ & $0$ \\
+	$\ \ 0$ & $+\frac{1}{2}$ & $0$ & & & $0$ & $0$ & $0$ \\
+	\hline
+	$\ \ 0$ & $-\frac{1}{2}$ & $0$ & $0$ & $0$ & & & $0$ \\
+	$-1$ & $+\frac{1}{2}$ & $0$ & $0$ & $0$ & & & $0$ \\  
+	\hline
+	$-1$ & $-\frac{1}{2}$ & $0$ & $0$ & $0$ & $0$ & $0$ & \\
+	\hline
+	\end{tabular}
+	\end{table}
+	
+	Then, utilizing the normalization condition, which means every column of the table is normalized, we could easily get the first and the last element of the table are $1$.
+	
+	Next, we only need to calculate the elements in the middle block.
+	\begin{align*}
+		\ket{j_1j_2; j m} =& \sum_{m_1 m_2} \ket{j_1 m_1; j_2 m_2} \bra{j_1 m_1; j_2 m_2} j_1j_2; j m \rangle \\
+		=& \sum_{m_1 m_2} C_{j_1m_1;j_2m_2}^{jm} \ket{j_1m_1; j_2m_2}. \\
+		\hat{J}_+ \ket{j_1j_2; j m} =& \sqrt{(j-m)(j+m+1)} \ket{j_1j_2; j (m+1)} \\
+		=& \sum_{m_1m_2} C_{j_1m_1; j_2m_2}^{jm} (\hat{J}_{1+} + \hat{J}_{2+}) \ket{j_1m_1; j_2m_2} \\
+		=& \sum_{m_1m_2} C_{j_1m_1; j_2m_2}^{jm} (\sqrt{(j_1-m_1)(j_1+m_1+1)} \ket{j_1(m_1+1); j_2m_2} \\
+		&+ \sqrt{(j_2-m_2)(j_2+m_2+1)}) \ket{j_1m_1; j_2(m_2+1)}.
+	\end{align*}
+	
+	Then project the state to $\bra{j_1m_1'; j_2m_2'}$, we get
+	\begin{align*}
+		&\sqrt{(j-m)(j+m+1)} C_{j_1m_1'; j_2m_2'}^{j(m+1)} \\
+		=& \sum_{m_1m_2} C_{j_1m_1; j_2m_2}^{jm} (\sqrt{(j_1-m_1)(j_1+m_1+1)} \delta_{m_1', (m_1+1)}\delta_{m_2'm_2} \\
+		&+ \sqrt{(j_2-m_2)(j_2+m_2+1)} \delta_{m_1'm_1} \delta_{m_2',(m_2+1)}) \\
+		=& C_{j_1(m_1'-1); j_2m_2'}^{jm} \sqrt{(j_1-m_1'+1)(j_1+m_1')} + C_{j_1m_1';j_2(m_2'-1)}^{jm} \sqrt{(j_2-m_2'+1)(j_2+m_2')}.
+	\end{align*}
+	
+	Then we could let $j = \frac{3}{2}$, $m=\frac{1}{2}$, $m_1' = 1$, $m_2' = \frac{1}{2}$, there is 
+	\[
+		\sqrt{3}C_{11;\frac{1}{2}\frac{1}{2}}^{\frac{3}{2}\frac{3}{2}} = \sqrt{2}C_{10;\frac{1}{2}\frac{1}{2}}^{\frac{3}{2}\frac{1}{2}} + C_{11;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}\frac{1}{2}}.
+	\]
+	
+	Utilizing the normalization condition $\vert C_{10;\frac{1}{2}\frac{1}{2}}^{\frac{3}{2}\frac{1}{2}} \vert^2 + \vert C_{11;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}\frac{1}{2}} \vert^2 = 1$, we get 
+	\[
+		C_{11;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}\frac{1}{2}} = \sqrt{\frac{1}{3}}; \ \ \ C_{10;\frac{1}{2}\frac{1}{2}}^{\frac{3}{2}\frac{1}{2}} = \sqrt{\frac{2}{3}}.
+	\]
+	
+	Let $j = \frac{3}{2}$, $m = -\frac{3}{2}$, $m_1' = 0$, $m_2' = -\frac{1}{2}$ or $j = \frac{3}{2}$, $m = -\frac{3}{2}$, $m_1' = -1$, $m_2' = \frac{1}{2}$, we could get the next two equations
+	\[
+		\sqrt{3}C_{10;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}-\frac{1}{2}} = \sqrt{2}C_{1-1; \frac{1}{2}-\frac{1}{2}}; \ \ \ \sqrt{3}C_{1-1;\frac{1}{2}\frac{1}{2}}^{\frac{3}{2}-\frac{1}{2}} = C_{1-1;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}-\frac{3}{2}}.
+	\]
+	Utilizing the condition $C_{1-1;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}-\frac{3}{2}} = 1$, we could determine that 
+	\[
+		C_{10;\frac{1}{2}-\frac{1}{2}}^{\frac{3}{2}-\frac{1}{2}} = \sqrt{\frac{2}{3}}; \ \ \ C_{1-1;\frac{1}{2}\frac{1}{2}}^{\frac{3}{2}-\frac{1}{2}} = \sqrt{\frac{1}{3}}.
+	\]
+	
+	Let $j = \frac{1}{2}$, $m = -\frac{1}{2}$, $m_1' = 1$, $m_2' = -\frac{1}{2}$ or $j = \frac{1}{2}$, $m = -\frac{1}{2}$, $m_1' = 0$, $m_2' = \frac{1}{2}$, we could get the next two equations 
+	\[
+		C_{11;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2}\frac{1}{2}} = \sqrt{2} C_{10;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2}-\frac{1}{2}}; \ \ \
+		C_{10;\frac{1}{2}\frac{1}{2}}^{\frac{1}{2}\frac{1}{2}} = \sqrt{2} C_{1-1;\frac{1}{2}\frac{1}{2}}^{\frac{1}{2}-\frac{1}{2}} + C_{10;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2} -\frac{1}{2}}.
+	\]
+	
+	Utilizing the normalization condition 
+	\[
+		\vert C_{11;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2}\frac{1}{2}} \vert^2 + \vert C_{10;\frac{1}{2}\frac{1}{2}}^{\frac{1}{2}\frac{1}{2}} \vert^2 = 1; \ \ \
+		\vert C_{10;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2}-\frac{1}{2}} \vert^2 + \vert C_{1-1;\frac{1}{2}\frac{1}{2}}^{\frac{1}{2}-\frac{1}{2}} \vert^2 = 1.
+	\]
+	
+	Then we could determine that 
+	\[
+		C_{11;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2}\frac{1}{2}} = \sqrt{\frac{2}{3}}; \ \ C_{10;\frac{1}{2}\frac{1}{2}}^{\frac{1}{2}\frac{1}{2}} = -\sqrt{\frac{1}{3}}; \ \ C_{10;\frac{1}{2}-\frac{1}{2}}^{\frac{1}{2}-\frac{1}{2}} = \sqrt{\frac{1}{3}}; \ \ C_{1-1;\frac{1}{2}\frac{1}{2}}^{\frac{1}{2}-\frac{1}{2}} = -\sqrt{\frac{2}{3}}.
+	\]
+	
+	Then we could get the table of C-G coefficients for $j_1=1$ and $j_2 = \frac{1}{2}$ as below 
+	\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|cc|c|cc|cc|c|}
+	\hline
+	 & &\ \ $\frac{3}{2}$ & $\ \ \frac{3}{2}$ &\ \ $\frac{1}{2}$ &\ \ $\frac{3}{2}$ &\ \ $\frac{1}{2}$ &\ \ $\frac{3}{2}$ \\ %\cline{2-3}
+	 & & $+\frac{3}{2}$ & $+\frac{1}{2}$ & $+\frac{1}{2}$ & $-\frac{1}{2}$ & $-\frac{1}{2}$ & $-\frac{3}{2}$ \\
+	\hline
+	$+1$ & $+\frac{1}{2}$ & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ \\
+	\hline
+	$+1$ & $-\frac{1}{2}$ & $0$ & $\sqrt{\frac{1}{3}}$ & $\sqrt{\frac{2}{3}}$ & $0$ & $0$ & $0$ \\
+	$\ \ 0$ & $+\frac{1}{2}$ & $0$ & $\sqrt{\frac{2}{3}}$ & $-\sqrt{\frac{1}{3}}$ & $0$ & $0$ & $0$ \\
+	\hline
+	$\ \ 0$ & $-\frac{1}{2}$ & $0$ & $0$ & $0$ & $\sqrt{\frac{2}{3}}$ & $\sqrt{\frac{1}{3}}$ & $0$ \\
+	$-1$ & $+\frac{1}{2}$ & $0$ & $0$ & $0$ & $\sqrt{\frac{1}{3}}$ & $-\sqrt{\frac{2}{3}}$ & $0$ \\  
+	\hline
+	$-1$ & $-\frac{1}{2}$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ \\
+	\hline
+	\end{tabular}
+	\end{table}
+	
+	The top row of the table is $\{J, M\}$ and the left column of the table is $\{m_1,m_2\}$.
+\end{proof}
+\medskip
+
+\item For $j=1$, there is 
+\[
+	d_{m'm}^j (\beta) = \bra{1,m'} e^{-\frac{i}{\hbar} \beta \hat{J}_y} \ket{1,m}.
+\]
+Determine the matrix element 
+\[
+	D_{m',m}^j (\alpha, \beta, \gamma).
+\]
+
+\begin{proof}
+In the $\ket{1,m}$ representation, we could get the matrix form of $\hat{J}_y = \frac{\hat{J}_+ - \hat{J}_-}{2i}$ is 
+\[
+	J_y = \frac{\hbar}{2i} \left( \begin{matrix}
+		0 & \sqrt{2} & 0 \\
+		-\sqrt{2} & 0 & \sqrt{2} \\
+		0 & -\sqrt{2} & 0
+	\end{matrix} \right)
+\]
+
+Then, we could determine that 
+\begin{align*}
+	J_y^2 =& \frac{\hbar^2}{-4} \left( \begin{matrix}
+		-2 & 0 & 2 \\
+		0 & -4 & 0 \\
+		2 & 0 & -2
+	\end{matrix} \right); \\
+	J_y^3 =& \frac{\hbar^3}{-8i} \left( \begin{matrix}
+		0 & -4\sqrt{2} & 0 \\
+		4\sqrt{2} & 0 & -4\sqrt{2} \\
+		0 & 4\sqrt{2} & 0
+	\end{matrix} \right) = \frac{\hbar^3}{2i} \left( \begin{matrix}
+		0 & \sqrt{2} & 0 \\
+		-\sqrt{2} & 0 & \sqrt{2} \\
+		0 & -\sqrt{2} & 0
+	\end{matrix} \right) = \hbar^2 J_y; \\
+	J_y^4 =& \frac{\hbar^4}{16} \left( \begin{matrix}
+		8 & 0 & -8 \\
+		0 & 16 & 0 \\
+		-8 & 0 & 8
+	\end{matrix} \right) = \frac{\hbar^4}{-4} \left( \begin{matrix}
+		-2 & 0 & 2 \\
+		0 & -4 & 0 \\
+		2 & 0 & -2
+	\end{matrix} \right) = \hbar^2 J_y^2.
+\end{align*}
+
+Which means 
+\[
+	(J_y/\hbar)^{2n-1} = J_y/\hbar; \ \ \ (J_y/\hbar)^{2n} = (J_y/\hbar)^2.
+\]
+
+for $n=1,2,3,\cdots$. 
+
+Then the matrix $d^j(\beta)$ is 
+\begin{align*}
+	d^j(\beta) =& \sum_{n=0}^\infty \left( -\frac{i}{\hbar} \right)^n \beta^n J_y^n = 1 - i\sum_{k=0}^\infty (-1)^k \beta^{2k+1} (J_y/\hbar)^{2k+1} + \sum_{j=1}^\infty (-1)^{j} \beta^{2j}(J_y/\hbar)^{2j} \\
+	=& 1 - i\sum_{k=0}^\infty (-1)^k \beta^{2k+1} (J_y/\hbar) + \sum_{j=1}^\infty (-1)^j \beta^{2j} (J_y/\hbar)^2 \\
+	=& 1 - i\sin\beta (J_y/\hbar) + (\cos\beta - 1) (J_y/\hbar)^2.
+\end{align*}
+
+In matrix form, we get 
+\[
+	d^1(\beta) = \left( \begin{matrix}
+		\frac{1}{2}(1+\cos\beta) & -\frac{1}{\sqrt{2}}\sin\beta & \frac{1}{2}(1-\cos\beta) \\
+		\frac{1}{\sqrt{2}}\sin\beta & \cos\beta & -\frac{1}{\sqrt{2}}\sin\beta \\
+		\frac{1}{2}(1-\cos\beta) & \frac{1}{\sqrt{2}}\sin\beta & \frac{1}{2}(1+\cos\beta)
+	\end{matrix} \right)
+\]
+
+The the matrix element satisfies $D_{m',m}^j(\alpha, \beta, \gamma) = e^{-im'\alpha-im\gamma} d_{m'm}^j(\beta)$, so we could write the matrix form of $D^1(\alpha, \beta, \gamma)$ as below
+\[
+	D^1(\alpha, \beta, \gamma) = \left( \begin{matrix}
+		\frac{1}{2}(1+\cos\beta)e^{-i(\alpha+\gamma)} & -\frac{1}{\sqrt{2}}\sin\beta e^{-i(\alpha+2\gamma)} & \frac{1}{2}(1-\cos\beta)e^{-i(\alpha+3\gamma)} \\
+		\frac{1}{\sqrt{2}}\sin\beta e^{-i(2\alpha+\gamma)} & \cos\beta e^{-i(2\alpha+2\gamma)} & -\frac{1}{\sqrt{2}}\sin\beta e^{-i(2\alpha+3\gamma)} \\
+		\frac{1}{2}(1-\cos\beta) e^{-i(3\alpha+\gamma)} & \frac{1}{\sqrt{2}}\sin\beta e^{-i(3\alpha+2\gamma)} & \frac{1}{2}(1+\cos\beta) e^{-i(3\alpha+3\gamma)}
+	\end{matrix} \right)
+\]
+\end{proof}
+\medskip
+
+\item The Hamiltonian of three spin-1/2 system is given by 
+\[
+	H = J \hat{\sigma}_1 \cdot \hat{\sigma}_2 + K \hat{\sigma}_2 \cdot \hat{\sigma}_3,
+\]
+where $\hat{\sigma}_i$ is the Pauli operator at the $i$-th site, and $J$ and $K$ are real. Solve the eigenstates and eigenvalues of the Hamiltonian. Discuss the degeneracy of eigenstates by analyzing the time-reverse symmetry of the system.
+
+\begin{proof}
+The Hamiltonian could be written as 
+\begin{align*}
+	H =& J\hat{\sigma}_1 \cdot \hat{\sigma}_2 + K \hat{\sigma}_2 \cdot \hat{\sigma}_3 \\
+	&= \frac{J}{2}(2\sigma_{1z}\sigma_{2z} + \sigma_{1+}\sigma_{2-} + \sigma_{1-}\sigma_{2+}) + \frac{K}{2}(2\sigma_{2z}\sigma_{3z} + \sigma_{2+}\sigma_{3-} + \sigma_{2-}\sigma_{3+}).
+\end{align*}
+
+In $\ket{s_1m_1, s_2m_2, s_3m_3} = \ket{s_1m_1} \otimes \ket{s_2m_2} \otimes \ket{s_3m_3}$ represent, we could write the matrix form of the Hamiltonian 
+\[
+	H = \left( \begin{matrix}
+		J+K & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+		0 & J-K & 2K & 0 & 0 & 0 & 0 & 0 \\
+		0 & 2K & -(J+K) & 2J & 0 & 0 & 0 & 0 \\
+		0 & 0 & 2J & K-J & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & K-J & 2J & 0 & 0 \\
+		0 & 0 & 0 & 0 & 2J & -(J+K) & 2K & 0 \\
+		0 & 0 & 0 & 0 & 0 & 2K & J-K & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & J+K
+	\end{matrix} \right),
+\]
+
+where $s_1=s_2=s_3=1/2$, $m_1,m_2,m_3 = \pm 1/2$.
+
+We could consider the blocks of the Hamiltonian. It is clear that we get 
+\[
+	H_1 = \left( \begin{matrix}
+		J+K
+	\end{matrix} \right), \ \ \ 
+	H_4 = \left( \begin{matrix}
+		J+K
+	\end{matrix} \right)
+\]
+
+which are one-dimension matrix. So the eigenvalue of $H_1$ is $J+K$, corresponding eigenvector is $\ket{1} = \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}\frac{1}{2},\frac{1}{2}\frac{1}{2}}$. The eigenvalue of $H_4$ is $J+K$, corresponding eigenvector is $\ket{8} = \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}-\frac{1}{2},\frac{1}{2}-\frac{1}{2}}$.
+
+Consider the matrix 
+\[
+	H_2 = \left( \begin{matrix}
+		J-K & 2K & 0 \\
+		2K & -(J+K) & 2J \\
+		0 & 2J & K-J
+	\end{matrix} \right).
+\]
+
+The eigenvalues satisfy 
+\[
+	\mathbf{Det} \vert H_2 - \lambda \mathbf{I} \vert = -(\lambda - (J+K)) (\lambda^2 + 2(J+K)\lambda -3(J-K)^2) = 0.
+\]
+
+So the eigenvalues are 
+\[
+	\lambda_1 = J+K, \ \lambda_2 = 2\sqrt{J^2+K^2-JK} - (J+K), \ \lambda_3 = -2\sqrt{J^2+K^2-JK} - (J+K).
+\]
+
+Corresponding eigenvectors are 
+\begin{align*}
+	\ket{2} =& \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2}} + \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2}} + \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2},\frac{1}{2}\frac{1}{2}}; \\
+	\ket{3} =& -\frac{-\sqrt{J^2+K^2-JK} + J-K}{J} \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}\frac{1}{2}, \frac{1}{2}-\frac{1}{2}} \\
+	&-\frac{\sqrt{J^2+K^2-JK}+K}{J} \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2}, \frac{1}{2}\frac{1}{2}} \\
+	& + \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2}, \frac{1}{2}\frac{1}{2}}; \\
+	\ket{4} =& -\frac{-\sqrt{J^2+K^2-JK} + J-K}{J} \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}\frac{1}{2}, \frac{1}{2}-\frac{1}{2}} \\
+	&-\frac{K-\sqrt{J^2+K^2-JK}}{J} \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2}, \frac{1}{2}\frac{1}{2}} \\
+	& + \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2}, \frac{1}{2}\frac{1}{2}}.
+\end{align*}
+
+Similarly, we could get the eigenvalues of $H_3$ are 
+\[
+	\lambda_5 = J+K, \ \lambda_6 = 2\sqrt{J^2+K^2-JK} - (J+K), \ \lambda_7 = -2\sqrt{J^2+K^2-JK} - (J+K).
+\]
+
+Corresponding eigenvectors are 
+\begin{align*}
+	\ket{5} =& \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2},\frac{1}{2}-\frac{1}{2}} + \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2}} + \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2}}; \\
+	\ket{6} =& -\frac{-\sqrt{J^2+K^2-JK} + J-K}{J} \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}-\frac{1}{2}, \frac{1}{2}\frac{1}{2}} \\
+	&-\frac{\sqrt{J^2+K^2-JK}+K}{J} \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2}, \frac{1}{2}-\frac{1}{2}} \\
+	& + \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2}, \frac{1}{2}-\frac{1}{2}}; \\
+	\ket{7} =& -\frac{-\sqrt{J^2+K^2-JK} + J-K}{J} \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}-\frac{1}{2}, \frac{1}{2}\frac{1}{2}} \\
+	&-\frac{K-\sqrt{J^2+K^2-JK}}{J} \ket{\frac{1}{2}-\frac{1}{2},\frac{1}{2}\frac{1}{2}, \frac{1}{2}-\frac{1}{2}} \\
+	& + \ket{\frac{1}{2}\frac{1}{2},\frac{1}{2}-\frac{1}{2}, \frac{1}{2}-\frac{1}{2}}.
+\end{align*}
+
+Then we could renormalize the six eigenvectors as 
+\[
+	\ket{i'} = \frac{1}{\sqrt{\bra{i} i \rangle }} \ket{i},
+\]
+
+where $i = 1, 2, 3, 4, 5, 6$.
+
+Then we could get the table as below 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	eigenvalues & $J+K$ & $2\sqrt{J^2+K^2-JK} - (J+K)$ &  $-2\sqrt{J^2+K^2-JK} - (J+K)$ \\
+	\hline
+	eigenvectors & $\ket{1}, \ket{8}, \ket{2}, \ket{5}$ & $\ket{3}, \ket{6}$ & $\ket{4}, \ket{7}$ \\
+	\hline
+	degeneracy & 4 & 2 & 2 \\
+	\hline
+\end{tabular}
+\end{table}
+
+We could determine that 
+\begin{align*}
+	\hat{T}^{-1} \hat{H} \hat{T} =& iK \sigma_y(1) \sigma_y(2) \sigma_y(3) (J \hat{\sigma}_1 \cdot \hat{\sigma}_2 + \kappa \hat{\sigma}_2 \cdot \hat{\sigma}_3) (-i) \sigma_y(1) \sigma_y(2) \sigma_y(3) K \\
+	=& J K \sigma_y(1) \sigma_y(2) \hat{\sigma}_1 \cdot \hat{\sigma}_2 \sigma_y(1) \sigma_y(2) K + \kappa K \sigma_y(2) \sigma_y(3) \hat{\sigma}_2 \cdot \hat{\sigma}_3 \sigma_y(2) \sigma_y(3) K \\
+	=& J \hat{\sigma}_1 \cdot \hat{\sigma}_2 + \kappa \hat{\sigma}_2 \cdot \hat{\sigma}_3 \\
+	=& \hat{H}.
+\end{align*}
+
+where $\kappa$ is $K$ in Hamiltonian.
+
+Then we could determine that 
+\[
+	\hat{T} \ket{1} = -\ket{8}; \ \hat{T} \ket{2} = \ket{5}; \ \hat{T} \ket{3} = \ket{6}; \ \hat{T} \ket{4} = \ket{7}.
+\]
+\end{proof}
+
+\medskip
+\end{enumerate}
+
+
+\end{document}
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\end{tcolorbox}

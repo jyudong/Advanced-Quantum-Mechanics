@@ -1,0 +1,194 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等量子力学第九次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{习题4.7}
+
+求解球形方势阱中$l=0$时的束缚态。
+
+\begin{proof}
+由薛定谔方程，可得：
+\[
+	\left( -\frac{\hbar^2}{2m} \nabla^2 + V(r) \right) \varphi(\vec{r}) = E \varphi(\vec{r}).
+\]
+
+在球坐标系下，分离变量可得，方程的解可以写作：
+\[
+	\varphi_{l,m}(\vec{r}) = \frac{1}{r}u_l(r) Y_l^m(\theta, \phi).
+\]
+
+其中，$u_l(r)$满足：
+\[
+	\left( -\frac{\hbar^2}{2m} \frac{d^2}{dr^2} + \frac{l(l+1)\hbar^2}{2mr^2} + V(r) \right) u_l(r) = E u_l(r).
+\]
+
+对于球形方势阱，可以选取低势能面为零势能面，则势能函数写作：
+\[
+	V(r) = \left\{ \begin{aligned}
+		&0, & & 0<r<r_0; \\
+		&V_0, & & r>r_0.
+	\end{aligned} \right.
+\]
+
+对于束缚态有：$0<E<V_0$，当$l=0$时，记$u(r) = u_0(r)$，$0<r<r_0$范围内有：
+\[
+	-\frac{\hbar^2}{2m} \frac{d^2}{dr^2} u(r) = E u(r).
+\]
+
+通解为：
+\[
+	u(r) = A\sin\left( \sqrt{\frac{2mE}{\hbar^2}} r \right) + B\cos\left( \sqrt{\frac{2mE}{\hbar^2}} r \right).
+\]
+
+利用边界条件$u(0) = 0$，可得$B=0$。
+
+在$r>r_0$范围内有：
+\[
+	\left( -\frac{\hbar^2}{2m} \frac{d^2}{dr^2} + V_0 \right) u_l(r) = E u_l(r).
+\]
+
+通解为：
+\[
+	u(r) = C \exp\left( -\sqrt{\frac{2m(V_0-E)}{\hbar^2}} r \right) + D \exp\left( \sqrt{\frac{2m(V_0-E)}{\hbar^2}} r \right)
+\]
+
+利用边界条件$u(\infty) = 0$，可得$D=0$。
+
+利用连续性条件
+\[
+	\lim_{r\to r_0^-} u(r) = \lim_{r\to r_0^+} u(r); \ \ \left. \frac{du(r)}{dr} \right\vert_{r\to r_0^-} = \left. \frac{du(r)}{dr} \right\vert_{r\to r_0^+}.
+\]
+
+可得：
+\begin{align*}
+	&A\sin\left( \sqrt{\frac{2mE}{\hbar^2}} r_0 \right) = C \exp \left( -\sqrt{\frac{2m(V_0-E)}{\hbar^2}} r_0 \right); \\
+	&A\sqrt{\frac{2mE}{\hbar^2}} \cos\left( \sqrt{\frac{2mE}{\hbar^2}} r_0 \right) = -\sqrt{\frac{2m(V_0-E)}{\hbar^2}} C \exp \left( -\sqrt{\frac{2m(V_0-E)}{\hbar^2}} r_0 \right).
+\end{align*}
+
+若存在$A$和$C$，则系数行列式为$0$，记$k=\sqrt{\frac{2mE}{\hbar^2}}, k' = \sqrt{\frac{2m(V_0-E)}{\hbar^2}}$即
+\[
+	\left\vert \begin{matrix}
+		\sin(kr_0) & -\exp(-k'r_0) \\
+		k\cos(kr_0) & k'\exp(-k'r_0)
+	\end{matrix} \right\vert = \exp(-k'r_0) (k'\sin(kr_0) + k\cos(kr_0)) = 0.
+\]
+
+即$l=0$时束缚态能量$E$满足如下方程：
+\[
+	\sqrt{\frac{E}{V_0-E}} = \tan\left(\sqrt{\frac{2mE}{\hbar^2}}r_0\right).
+\]
+
+波函数可以写作：
+\[
+	\varphi (r,\theta, \phi) = \frac{1}{r}u(r) Y_0^0(\theta, \phi).
+\]
+
+可以将波函数归一化得到束缚态在坐标表象下的归一化的波函数。
+\end{proof}
+
+\medskip
+
+\textbf{习题4.8}
+
+试求散射势
+\[
+	V(r) = \gamma\delta(r-a)
+\]
+
+下的$s$波散射相移和散射截面，其中$a>0$。
+
+\begin{proof}
+与上题类似，薛定谔方程经分离变量可得：
+\[
+	\left( \frac{d^2}{dr^2} + k^2 - 2m\gamma \delta(r-a) \right)u = 0.
+\]
+
+其中边界条件为：
+\[
+	u(0) = 0; \ \ \ u(\infty) \to \sin(kr+\delta_0).
+\]
+
+当$r\neq a$时，$V(r) = 0$，则通解可以写为：
+\[
+	u(r) = \left\{ \begin{aligned}
+		&A\sin(kr) + B\cos(kr) = \sqrt{A^2+B^2} \sin(kr+\delta_0); && r>a \\
+		&C\sin(kr); && r<a.
+	\end{aligned} \right.
+\]
+
+考虑连续性条件，有：
+\[
+	u(a+) = u(a-); \ \ u'(a+)-u'(a-) = 2m\gamma u(a).
+\]
+
+即
+\begin{align*}
+	&C\sin(ka) = A\sin(ka)+B\cos(ka) \\
+	&C(k\cos(ka)+2m\gamma\sin(ka)) = Ak\cos(ka) - Bk\sin(ka)
+\end{align*}
+
+从而可得：
+\[
+	\frac{B}{A} = -\frac{2m\gamma \sin^2(ka)}{k+m\gamma\sin(2ka)}
+\]
+
+当$ka<<1$时，$s$波散射为主要贡献，相移为：
+\[
+	\delta_0 = \arctan\frac{B}{A} = -\arctan \left(\frac{2m\gamma \sin^2(ka)}{k+m\gamma\sin(2ka)} \right).
+\]
+
+散射截面为：
+\[
+	\sigma_0 = \frac{4\pi}{k^2}\sin^2\delta_0 = \frac{4\pi}{k^2} \frac{\left(\frac{2m\gamma \sin^2(ka)}{k+m\gamma\sin(2ka)} \right)^2}{1+\left(\frac{2m\gamma \sin^2(ka)}{k+m\gamma\sin(2ka)} \right)^2} = \frac{4\pi}{k^2} \frac{\left(2m\gamma \sin^2(ka)\right)^2}{\left(2m\gamma \sin^2(ka)\right)^2 + \left( k+m\gamma\sin(2ka) \right)^2}.
+\]
+\end{proof}
+
+\medskip
+
+\textbf{习题5.1}
+
+$2$个全同玻色粒子在$3$个单粒子模式情况下，写出该Hilbert空间的所有基矢。
+
+\begin{proof}
+对于波色子体系，每个单粒子模式可以容纳任意多粒子，则该Hilbert空间的基矢为：
+\[
+	\ket{2,0,0}, \ \ket{0,2,0}, \ \ket{0,0,2}; \ \ket{1,1,0}, \ \ket{1,0,1}, \ \ket{0,1,1}.
+\]
+\end{proof}
+
+\medskip
+
+\textbf{习题5.2}
+
+将上题中的玻色粒子换成费米粒子，写出Hilbert空间的全部基矢。
+
+\begin{proof}
+对于费米子体系，每一个粒子模式只能有$0$或$1$个粒子占据，基矢可以写为：
+\[
+	\ket{1,1,0}, \ \ket{1,0,1}, \ \ket{0,1,1}.
+\]
+\end{proof}
+
+
+\end{document}
